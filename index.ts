@@ -1,4 +1,4 @@
-import express, { Express, Request, Response , Application } from 'express';
+import express, { Request, Response } from 'express';
 import dotenv from 'dotenv';
 import cors from 'cors';
 import { registerRouter } from './controller/users/registerUser';
@@ -14,7 +14,7 @@ app.use(express.json());
 
 app.use(express.urlencoded({
   extended: true,
-}))
+}));
 
 const port = process.env.PORT || 3000;
 
