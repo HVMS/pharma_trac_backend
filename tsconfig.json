@@ -115,7 +115,7 @@
     "esModuleInterop": true,
     "target": "ES2017",
     "moduleResolution": "node",
-    "outDir": "./",
+    "outDir": "/",
     "strict": true
   },
   "exclude": [
