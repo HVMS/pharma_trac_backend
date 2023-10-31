@@ -1,6 +1,6 @@
 import express, { Request, Response } from 'express';
-import dotenv from 'dotenv';
 import { registerRouter } from './controller/users/registerUser';
+import dotenv from 'dotenv';
 
 //For env File 
 dotenv.config();
