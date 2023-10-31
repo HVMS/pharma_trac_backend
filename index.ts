@@ -1,13 +1,11 @@
 import express, { Request, Response } from 'express';
 import dotenv from 'dotenv';
-import cors from 'cors';
 import { registerRouter } from './controller/users/registerUser';
 
 //For env File 
 dotenv.config();
 
 const app = express();
-app.use(cors());
 
 // Middleware to parse JSON in request body
 app.use(express.json());
