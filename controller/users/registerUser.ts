@@ -9,7 +9,7 @@ const userService = new UserService();
 registerRouter.post('/', async (req: Request, res: Response) => {
     console.log(req.body);
 
-    const current_user = req.body;
+    const current_user : user = req.body;
 
     console.log("Email address is : ", req.body.email_address);
     console.log("Pwd is : ", req.body.password);
