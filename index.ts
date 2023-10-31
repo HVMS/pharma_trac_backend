@@ -1,4 +1,4 @@
-import express, { Request, Response } from 'express';
+import express, { Express, Request, Response , Application } from 'express';
 import dotenv from 'dotenv';
 import { registerRouter } from './controller/users/registerUser';
 
@@ -9,10 +9,6 @@ const app = express();
 
 // Middleware to parse JSON in request body
 app.use(express.json());
-
-app.use(express.urlencoded({
-  extended: true,
-}));
 
 const port = process.env.PORT || 3000;
 
