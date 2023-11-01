@@ -7,15 +7,15 @@ export const registerRouter = express.Router();
 const userService = new UserService();
 
 registerRouter.post('/', async (req: Request, res: Response) => {
-    console.log(req.body);
+    console.log("Request body is : ",req.body);
 
     const current_user : user = req.body;
 
     console.log("Email address is : ", req.body.email_address);
-    console.log("Pwd is : ", req.body.password);
+    console.log("Password is : ", req.body.password);
 
     const new_user = await userService.createUser(current_user);
-    console.log(new_user);
+    console.log("New user is : ",new_user);
 
     if (new_user) {
         res.json({
@@ -25,6 +25,7 @@ registerRouter.post('/', async (req: Request, res: Response) => {
         });
     } else {
         res.json({
+            statusCode: 200,
             message: "User already exists",
         });
     }
