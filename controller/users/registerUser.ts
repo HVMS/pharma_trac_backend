@@ -19,14 +19,14 @@ registerRouter.post('/', async (req: Request, res: Response) => {
 
     if (new_user) {
         res.json({
-            statusCode: 200,
-            message: "User created successfully",
-            user: new_user
+            "statusCode": 200,
+            "message": "User created successfully",
+            "user": new_user
         });
     } else {
         res.json({
-            statusCode: 200,
-            message: "User already exists",
+            "statusCode": 409,
+            "message": "User already exists",
         });
     }
 
