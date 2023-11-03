@@ -26,7 +26,7 @@ registerFinalUser.post('/', async (req: Request, res: Response) => {
     console.log("Weight is : ", current_user.weight);
 
 
-    const newRegisterUser = await userService.createUser(current_user);
+    const newRegisterUser = await userService.registerUser(current_user);
     console.log("New user is : ",newRegisterUser);
 
     if (newRegisterUser) {
