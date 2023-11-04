@@ -10,7 +10,7 @@ const userRegistrationDatabase = envVariables.userRegistrationCollection;
 
 class UserService{
 
-    async getUser(userRegister: user) {
+    async getUser(userRegister: userRegister) {
         try {
             // Connect to MongoDB
             const client = await MongoClient.connect(mongoURI, {
