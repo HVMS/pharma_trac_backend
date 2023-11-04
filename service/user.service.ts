@@ -10,7 +10,7 @@ const userRegistrationDatabase = envVariables.userRegistrationCollection;
 
 class UserService{
 
-    async getUser(user: user) {
+    async getUser(userRegister: user) {
         try {
             // Connect to MongoDB
             const client = await MongoClient.connect(mongoURI, {
@@ -18,10 +18,10 @@ class UserService{
                 socketTimeoutMS: 30000,
             });
             const db: Db = client.db(dbName);
-            console.log(user);
+            console.log(userRegister);
             const returned_user = await db
-                .collection(userDatabase)
-                .findOne(user);
+                .collection(userRegistrationDatabase)
+                .findOne(userRegister);
 
             console.log(returned_user);
             await client.close();
