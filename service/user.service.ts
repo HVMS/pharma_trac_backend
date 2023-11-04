@@ -8,6 +8,9 @@ const dbName = envVariables.dbName;
 const userDatabase = envVariables.usersCollectionName;
 const userRegistrationDatabase = envVariables.userRegistrationCollection;
 
+console.log(userRegistrationDatabase);
+console.log(typeof(userRegistrationDatabase));
+
 class UserService{
 
     async getUser(userRegister: userRegister) {
@@ -76,6 +79,8 @@ class UserService{
             const database = client.db(dbName);
 
             console.log("Before mongodb insertion data is : ", userRegister);
+
+            console.log("userDatabase name is : ", userRegistrationDatabase);
 
             const newRegisteredUser = await database.collection(userRegistrationDatabase).insertOne(userRegister);
 

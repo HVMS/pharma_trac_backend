@@ -19,7 +19,7 @@ app.get('/', (req: Request, res: Response) => {
 
 // Redirect requests to the routers
 app.use('/register', registerRouter);
-app.use('/registerFinal', registerFinalUser);
+app.use('/registerfinal', registerFinalUser);
 
 app.listen(port, () => {
   console.log(`Server is Fire at http://localhost:${port}`);
