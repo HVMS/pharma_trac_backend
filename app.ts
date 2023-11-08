@@ -2,6 +2,7 @@ import express, { Request, Response } from "express";
 import { registerRouter } from "./controller/users/registerUser";
 import dotenv from "dotenv";
 import { registerFinalUser } from "./controller/users/registerFinalUser";
+import { userById } from "./controller/users/getUserById";
 
 //For env File 
 dotenv.config();
@@ -20,6 +21,7 @@ app.get('/', (req: Request, res: Response) => {
 // Redirect requests to the routers
 app.use('/register', registerRouter);
 app.use('/registerfinal', registerFinalUser);
+app.use('/user', userById);
 
 app.listen(port, () => {
   console.log(`Server is Fire at http://localhost:${port}`);

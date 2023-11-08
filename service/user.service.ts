@@ -94,6 +94,35 @@ class UserService{
             console.log('error in register user is : '+error);
         }
     }
+
+    // Get User information using it's Id
+    async getUserById(userId: string) {
+        try {
+          // Connect to MongoDB
+          const client = await MongoClient.connect(mongoURI, {
+            connectTimeoutMS: 5000,
+            socketTimeoutMS: 30000,
+          });
+          const db: Db = client.db(dbName);
+      
+          // Assuming you have an ObjectId for the user, create one like this
+          const objectId = new ObjectId(userId);
+      
+          const returned_user = await db
+            .collection(userRegistrationDatabase)
+            .findOne({ _id: objectId });
+      
+          await client.close();
+      
+          if (returned_user) {
+            return returned_user;
+          }else{
+            return null;
+          }
+        } catch (error) {
+          console.log('Error in getUserById:', error);
+        }
+      }
 }
 
 export default UserService;
