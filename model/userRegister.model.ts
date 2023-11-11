@@ -1,3 +1,5 @@
+import { ObjectId } from "mongodb";
+
 interface userRegister {
     email_address?: String;
     password?: String;
@@ -8,6 +10,7 @@ interface userRegister {
     country?: String;
     height?: String;
     weight?: String;
+    _id?: ObjectId;
 }
 
 export default userRegister;

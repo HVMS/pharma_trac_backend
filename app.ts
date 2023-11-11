@@ -2,6 +2,7 @@ import express, { Request, Response } from "express";
 import { registerRouter } from "./controller/users/registerUser";
 import dotenv from "dotenv";
 import { registerFinalUser } from "./controller/users/registerFinalUser";
+import { updateUserRouter } from "./controller/users/updateUser";
 import { userById } from "./controller/users/getUserById";
 
 //For env File 
@@ -22,6 +23,7 @@ app.get('/', (req: Request, res: Response) => {
 app.use('/register', registerRouter);
 app.use('/registerfinal', registerFinalUser);
 app.use('/user', userById);
+app.use('/updateUser', updateUserRouter);
 
 app.listen(port, () => {
   console.log(`Server is Fire at http://localhost:${port}`);

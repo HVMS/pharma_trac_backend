@@ -1,4 +1,4 @@
-import {Db, MongoClient, ObjectId} from "mongodb";
+import { Db, MongoClient, ObjectId } from "mongodb";
 import user from "../model/user.model";
 import userRegister from "../model/userRegister.model";
 import envVariables from "../importenv";
@@ -9,9 +9,9 @@ const userDatabase = envVariables.usersCollectionName;
 const userRegistrationDatabase = envVariables.userRegistrationCollection;
 
 console.log(userRegistrationDatabase);
-console.log(typeof(userRegistrationDatabase));
+console.log(typeof (userRegistrationDatabase));
 
-class UserService{
+class UserService {
 
     async getUser(userRegister: userRegister) {
         try {
@@ -38,12 +38,12 @@ class UserService{
     }
 
 
-    async createUser(user: user){
-        if ((await this.getUser({email_address: user.email_address})) != null){
-            return ;
+    async createUser(user: user) {
+        if ((await this.getUser({ email_address: user.email_address })) != null) {
+            return;
         }
         try {
-            const client = await MongoClient.connect(mongoURI,{
+            const client = await MongoClient.connect(mongoURI, {
                 connectTimeoutMS: 5000,
                 socketTimeoutMS: 3000,
             });
@@ -62,16 +62,16 @@ class UserService{
 
 
         } catch (error) {
-            console.log('error in createUser is : '+error);
+            console.log('error in createUser is : ' + error);
         }
     }
 
-    async registerUser(userRegister: userRegister){
-        if((await this.getUser({email_address: userRegister.email_address})) != null){
-            return ;
+    async registerUser(userRegister: userRegister) {
+        if ((await this.getUser({ email_address: userRegister.email_address })) != null) {
+            return;
         }
         try {
-            const client = await MongoClient.connect(mongoURI,{
+            const client = await MongoClient.connect(mongoURI, {
                 connectTimeoutMS: 5000,
                 socketTimeoutMS: 3000,
             });
@@ -91,38 +91,64 @@ class UserService{
             return newRegisteredUser;
 
         } catch (error) {
-            console.log('error in register user is : '+error);
+            console.log('error in register user is : ' + error);
         }
     }
 
     // Get User information using it's Id
     async getUserById(userId: string) {
         try {
-          // Connect to MongoDB
-          const client = await MongoClient.connect(mongoURI, {
-            connectTimeoutMS: 5000,
-            socketTimeoutMS: 30000,
-          });
-          const db: Db = client.db(dbName);
-      
-          // Assuming you have an ObjectId for the user, create one like this
-          const objectId = new ObjectId(userId);
-      
-          const returned_user = await db
-            .collection(userRegistrationDatabase)
-            .findOne({ _id: objectId });
-      
-          await client.close();
-      
-          if (returned_user) {
-            return returned_user;
-          }else{
-            return null;
-          }
+            // Connect to MongoDB
+            const client = await MongoClient.connect(mongoURI, {
+                connectTimeoutMS: 5000,
+                socketTimeoutMS: 30000,
+            });
+            const db: Db = client.db(dbName);
+
+            // Assuming you have an ObjectId for the user, create one like this
+            const objectId = new ObjectId(userId);
+
+            const returned_user = await db
+                .collection(userRegistrationDatabase)
+                .findOne({ _id: objectId });
+
+            await client.close();
+
+            if (returned_user) {
+                return returned_user;
+            } else {
+                return null;
+            }
         } catch (error) {
-          console.log('Error in getUserById:', error);
+            console.log('Error in getUserById:', error);
         }
-      }
+    }
+
+    async updateUser(userRegister: userRegister) {
+        try {
+            // Connect to MongoDB
+            const client = await MongoClient.connect(mongoURI ? mongoURI : "", {
+                connectTimeoutMS: 5000,
+                socketTimeoutMS: 30000,
+            });
+            const db: Db = client.db(dbName);
+
+            const _id = userRegister._id;
+            delete userRegister._id;
+
+            // Check user credentials in the MongoDB collection
+            const users = await db
+                .collection(userRegistrationDatabase)
+                .updateOne({ _id: new ObjectId(_id) }, { $set: userRegister });
+            await client.close();
+
+            console.log(users);
+            return users;
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
 }
 
 export default UserService;
