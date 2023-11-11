@@ -137,13 +137,22 @@ class UserService {
             delete userRegister._id;
 
             // Check user credentials in the MongoDB collection
-            const users = await db
+            const result = await db
                 .collection(userRegistrationDatabase)
                 .updateOne({ _id: new ObjectId(_id) }, { $set: userRegister });
+                
             await client.close();
 
-            console.log(users);
-            return users;
+            console.log(result);
+
+            if (result.modifiedCount > 0) {
+                return {
+                    matchedCount: result.matchedCount,
+                    modifiedCount: result.modifiedCount,
+                };
+            } else {
+                return null; // No document matched the provided _id
+            }
         } catch (error) {
             console.log(error);
         }
