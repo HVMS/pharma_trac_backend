@@ -9,7 +9,7 @@ updateUserRouter.patch('/', async (req: Request, res: Response) => {
     console.log("Checking auto push on backend change in render from github workflow");
     const userUpdate = req.body;
 
-    userUpdate.user_id = userUpdate._id
+    userUpdate._id = userUpdate._id
     delete userUpdate._id
     try {
         const response = await userService.updateUser(userUpdate);
