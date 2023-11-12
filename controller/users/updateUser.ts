@@ -13,6 +13,18 @@ updateUserRouter.patch('/', async (req: Request, res: Response) => {
 
     try {
         const updatedUser = await userService.updateUser(_id, updateFields);
+        
+        if (!updatedUser) {
+            res.status(404).send({message: 'User not found'});
+            return;
+        }else{
+            console.log("Updated user is : ", updatedUser);
+            res.status(200).send({
+                message: 'User updated successfully',
+                updatedUser: updatedUser.value,
+            });
+        }
+
         res.json(updatedUser);
     } catch (error: any) {
         res.status(500).send({message: error.message});
