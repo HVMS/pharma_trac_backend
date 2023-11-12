@@ -10,7 +10,7 @@ interface userRegister {
     country?: String;
     height?: String;
     weight?: String;
-    _id?: ObjectId;
+    _id?: String;
 }
 
 export default userRegister;

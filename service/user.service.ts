@@ -76,13 +76,18 @@ class UserService {
                 socketTimeoutMS: 3000,
             });
 
+            const { ObjectId } = require('mongodb');
+
             const database = client.db(dbName);
 
             console.log("Before mongodb insertion data is : ", userRegister);
 
             console.log("userDatabase name is : ", userRegistrationDatabase);
 
-            const newRegisteredUser = await database.collection(userRegistrationDatabase).insertOne(userRegister);
+            const newRegisteredUser = await database.collection(userRegistrationDatabase).insertOne({
+                ...userRegister,
+                _id: new ObjectId(),
+            });
 
             console.log("After mongodb insertion data is : ", newRegisteredUser);
 
@@ -133,8 +138,11 @@ class UserService {
 
             const db: Db = client.db(dbName);
 
-            const objectId = new ObjectId(userRegister._id);
-            
+            let objectId;
+            if (userRegister._id) {
+                objectId = ObjectId.createFromHexString(userRegister._id.toString());
+            }
+
             const updatedUser = await db
                 .collection(userDatabase)
                 .updateOne({ _id: objectId }, { $set: userRegister });
