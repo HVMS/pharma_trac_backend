@@ -12,7 +12,7 @@ updateUserRouter.patch('/', async (req: Request, res: Response) => {
     console.log("Id is : ", _id);
 
     try {
-        const updatedUser = await userService.updateUser({...updateFields, _id});
+        const updatedUser = await userService.updateUser(_id, updateFields);
         res.json(updatedUser);
     } catch (error: any) {
         res.status(500).send({message: error.message});

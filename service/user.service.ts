@@ -129,7 +129,7 @@ class UserService {
         }
     }
 
-    async updateUser(userRegister: userRegister) {
+    async updateUser(_id: string, updateFields : Partial<userRegister>) {
         try{
             const client = await MongoClient.connect(mongoURI, {
                 connectTimeoutMS: 5000,
@@ -139,16 +139,18 @@ class UserService {
             const db: Db = client.db(dbName);
 
             let objectId;
-            if (userRegister._id) {
-                objectId = ObjectId.createFromHexString(userRegister._id.toString());
+            if (updateFields._id) {
+                objectId = ObjectId.createFromHexString(updateFields._id.toString());
             }
 
             console.log("Object id is : ", objectId);
-            console.log("User register is : ", userRegister);
+            console.log("User register is : ", updateFields);
 
             const updatedUser = await db
                 .collection(userRegistrationDatabase)
-                .updateOne({ _id: objectId }, { $set: userRegister });
+                .findOneAndUpdate({ _id: objectId }, { $set: updateFields });
+
+            console.log("Updated user is : ", updatedUser);
 
             await client.close();
 
