@@ -140,19 +140,11 @@ class UserService {
 
             console.log("incoming id is : ", _id);
 
-            let objectId;
-            if (updateFields._id) {
-                objectId = ObjectId.createFromHexString(updateFields._id.toString());
-            }
-
-            console.log("Object id is : ", updateFields._id);
-            console.log("User register is : ", updateFields);
-
             const objectIdToUpdate = ObjectId.createFromHexString(_id);
 
             const updatedUser = await db
                 .collection(userRegistrationDatabase)
-                .updateOne({ _id: objectIdToUpdate }, { $set: updateFields });
+                .findOneAndUpdate({ _id: objectIdToUpdate }, { $set: updateFields });
 
             console.log("Updated user is : ", updatedUser);
 
