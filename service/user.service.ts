@@ -143,8 +143,11 @@ class UserService {
                 objectId = ObjectId.createFromHexString(userRegister._id.toString());
             }
 
+            console.log("Object id is : ", objectId);
+            console.log("User register is : ", userRegister);
+
             const updatedUser = await db
-                .collection(userDatabase)
+                .collection(userRegistrationDatabase)
                 .updateOne({ _id: objectId }, { $set: userRegister });
 
             await client.close();
