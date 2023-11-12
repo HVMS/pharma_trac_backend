@@ -6,27 +6,15 @@ export const updateUserRouter = express.Router();
 const userService = new UserService();
 // Login endpoint
 updateUserRouter.patch('/', async (req: Request, res: Response) => {
-    console.log("Checking auto push on backend change in render from github workflow");
-    const userUpdate = req.body;
+    const {_id, ...updateFields} = req.body;
 
-    console.log("Request data : ", req.body);
-    console.log("Request data : id is ===> ",req.body._id);
+    console.log("Update fields are : ", updateFields);
+    console.log("Id is : ", _id);
 
-    userUpdate._id = userUpdate._id
-    delete userUpdate._id
     try {
-        const response = await userService.updateUser(userUpdate);
-        if (response) {
-            res.json({
-                message: 'User Updated Successfully',
-                matched: response.matchedCount,
-                modified: response.modifiedCount
-            });
-        } else {
-            res.status(401).json({message: 'Error occurred'});
-        }
-    } catch (error) {
-        console.log(error);
-        res.status(500).json({message: error});
+        const updatedUser = await userService.updateUser({...updateFields, _id});
+        res.json(updatedUser);
+    } catch (error: any) {
+        res.status(500).send({message: error.message});
     }
 });

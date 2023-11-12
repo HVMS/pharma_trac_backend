@@ -125,36 +125,30 @@ class UserService {
     }
 
     async updateUser(userRegister: userRegister) {
-        try {
-            // Connect to MongoDB
-            const client = await MongoClient.connect(mongoURI ? mongoURI : "", {
+        try{
+            const client = await MongoClient.connect(mongoURI, {
                 connectTimeoutMS: 5000,
                 socketTimeoutMS: 30000,
             });
+
             const db: Db = client.db(dbName);
 
-            const _id = userRegister._id;
-            delete userRegister._id;
+            const objectId = new ObjectId(userRegister._id);
+            
+            const updatedUser = await db
+                .collection(userDatabase)
+                .updateOne({ _id: objectId }, { $set: userRegister });
 
-            // Check user credentials in the MongoDB collection
-            const result = await db
-                .collection(userRegistrationDatabase)
-                .updateOne({ _id: new ObjectId(_id) }, { $set: userRegister });
-                
             await client.close();
 
-            console.log(result);
-
-            if (result.modifiedCount > 0) {
-                return {
-                    matchedCount: result.matchedCount,
-                    modifiedCount: result.modifiedCount,
-                };
+            if (updatedUser) {
+                return updatedUser;
             } else {
-                return null; // No document matched the provided _id
+                return null;
             }
-        } catch (error) {
-            console.log(error);
+
+        }catch(error){
+            console.log('Error in updateUser:', error);
         }
     }
 
