@@ -4,7 +4,7 @@ import envVariables from "../importenv";
 
 const mongoURI = envVariables.mongoURI;
 const dbName = envVariables.dbName;
-const vitalSignCollection = envVariables.vitalSignCollection;
+const vitalSignCollection = envVariables.vitalSignsCollection;
 
 console.log(vitalSignCollection);
 console.log(typeof (vitalSignCollection));
