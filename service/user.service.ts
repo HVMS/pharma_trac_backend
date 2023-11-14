@@ -1,6 +1,6 @@
 import { Db, MongoClient, ObjectId } from "mongodb";
-import user from "../model/user.model";
-import userRegister from "../model/userRegister.model";
+import user from "../model/userModel/user.model";
+import userRegister from "../model/userModel/userRegister.model";
 import envVariables from "../importenv";
 
 const mongoURI = envVariables.mongoURI;

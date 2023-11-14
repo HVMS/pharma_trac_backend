@@ -1,5 +1,5 @@
 import express, { Request, Response } from "express";
-import user from "../../model/user.model";
+import user from "../../model/userModel/user.model";
 import UserService from "../../service/user.service";
 
 export const registerRouter = express.Router();
