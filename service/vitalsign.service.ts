@@ -26,11 +26,17 @@ class VitalSignSerivce {
 
             let result;
 
+            // Ensure vitalSigns is an array
+            const vitalSigns = Array.isArray(data.vitalSigns) ? data.vitalSigns : [data.vitalSigns];
+
             if (existingUser) {
-                result = await database.collection(vitalSignCollection).updateOne({ user_id: data.user_id }, { $push: { vitalSigns: data.vitalSigns } });
+                result = await database.collection(vitalSignCollection).updateOne(
+                    { user_id: data.user_id },
+                    { $push: { vitalSigns: { $each: vitalSigns } } }
+                );
                 console.log("Updated vitalSigns are : ", result);
-            }else{
-                result = await database.collection(vitalSignCollection).insertOne(data);
+            } else {
+                result = await database.collection(vitalSignCollection).insertOne({ ...data, vitalSigns });
                 console.log("Inserted vitalSigns are : ", result);
             }
 
