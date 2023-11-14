@@ -25,6 +25,8 @@ app.use('/registerfinal', registerFinalUser);
 app.use('/user', userById);
 app.use('/updateUser', updateUserRouter);
 
+app.use('/addVitalSign', );
+
 app.listen(port, () => {
   console.log(`Server is Fire at http://localhost:${port}`);
 });
