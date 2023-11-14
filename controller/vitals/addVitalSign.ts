@@ -8,29 +8,26 @@ const vitalSignService = new VitalSignSerivce();
 
 // Login endpoint
 addVitalSignRouter.post('/', async (req: Request, res: Response) => {
-
     console.log("Request body is : ", req.body);
-    const current_vitalSign: vitalSigns = req.body;
+    const { user_id, vitalSigns } = req.body;
 
-    console.log("current_vitalSign are : ", current_vitalSign);
+    console.log("current_vitalSign are : ", vitalSigns);
 
     try {
-        const vitalSignData = await vitalSignService.addVitalSign(current_vitalSign);
+        const vitalSignData = await vitalSignService.addVitalSign({ user_id, vitalSigns });
         
         if (vitalSignData) {
             res.json({
                 "statusCode": 200,
-                "message": "Vital Signs added successfully",
+                "message": "Vital Signs added or updated successfully",
                 "user": vitalSignData
             });
         } else {
             res.json({
                 "statusCode": 409,
-                "message": "Vital Signs already exists",
+                "message": "Failed to add or update Vital Signs",
             });
         }
-
-        res.json(vitalSignData);
     } catch (error: any) {
         res.status(500).send({message: error.message});
     }

@@ -11,7 +11,7 @@ console.log(typeof (vitalSignCollection));
 
 class VitalSignSerivce {
 
-    async addVitalSign(vitalSigns: vitalSigns) {
+    async addVitalSign(data: { user_id: string, vitalSigns: any[] }) {
         try {
             const client = await MongoClient.connect(mongoURI, {
                 connectTimeoutMS: 5000,
@@ -20,15 +20,23 @@ class VitalSignSerivce {
 
             const database = client.db(dbName);
 
-            console.log("New vitalSigns are  is ", vitalSigns);
+            console.log("New vitalSigns are  is ", data);
 
-            const newVitalSign = await database.collection(vitalSignCollection).insertOne(vitalSigns);
+            const existingUser = await database.collection(vitalSignCollection).findOne({ user_id: data.user_id });
 
-            console.log("Inserted vitalSigns are : ", newVitalSign);
+            let result;
+
+            if (existingUser) {
+                result = await database.collection(vitalSignCollection).updateOne({ user_id: data.user_id }, { $push: { vitalSigns: data.vitalSigns } });
+                console.log("Updated vitalSigns are : ", result);
+            }else{
+                result = await database.collection(vitalSignCollection).insertOne(data);
+                console.log("Inserted vitalSigns are : ", result);
+            }
 
             await client.close();
 
-            return newVitalSign;
+            return result;
 
 
         } catch (error) {
