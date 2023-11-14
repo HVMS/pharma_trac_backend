@@ -20,13 +20,13 @@ addVitalSignRouter.post('/', async (req: Request, res: Response) => {
         if (vitalSignData) {
             res.json({
                 "statusCode": 200,
-                "message": "User Register successfully",
+                "message": "Vital Signs added successfully",
                 "user": vitalSignData
             });
         } else {
             res.json({
                 "statusCode": 409,
-                "message": "User already exists",
+                "message": "Vital Signs already exists",
             });
         }
 
