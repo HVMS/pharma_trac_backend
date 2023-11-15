@@ -24,6 +24,9 @@ class VitalSignSerivce {
 
             const result = await database.collection(vitalSignCollection).insertOne(data);
 
+            console.log(result);
+            console.log(typeof (result));
+
             console.log("Inserted vitalSigns are : ", result);
 
             await client.close();
