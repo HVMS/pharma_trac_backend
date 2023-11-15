@@ -22,28 +22,13 @@ class VitalSignSerivce {
 
             console.log("New vitalSigns are  is ", data);
 
-            const existingUser = await database.collection(vitalSignCollection).findOne({ user_id: data.user_id });
+            const result = await database.collection(vitalSignCollection).insertOne(data);
 
-            let result;
-
-            // Ensure vitalSigns is an array
-            const vitalSigns = Array.isArray(data.vitalSigns) ? data.vitalSigns : [data.vitalSigns];
-
-            if (existingUser) {
-                result = await database.collection(vitalSignCollection).updateOne(
-                    { user_id: data.user_id },
-                    { $push: { vitalSigns: { $each: vitalSigns } } }
-                );
-                console.log("Updated vitalSigns are : ", result);
-            } else {
-                result = await database.collection(vitalSignCollection).insertOne({ ...data, vitalSigns });
-                console.log("Inserted vitalSigns are : ", result);
-            }
+            console.log("Inserted vitalSigns are : ", result);
 
             await client.close();
 
             return result;
-
 
         } catch (error) {
             console.log('error in createUser is : ' + error);
