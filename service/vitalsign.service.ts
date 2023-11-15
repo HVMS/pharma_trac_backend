@@ -26,22 +26,27 @@ class VitalSignSerivce {
 
             let result;
 
-            const vitalSigns = Array.isArray(data.vitalSignRequestBody) ? data.vitalSignRequestBody : [data.vitalSignRequestBody];
-
             if (existingUser) {
-                result = await database.collection(vitalSignCollection).updateOne(
-                    { user_id: data.user_id },
-                    { $push: { vitalSigns: { $each: vitalSigns } } }
-                );
+                for (let vitalSign of data.vitalSignRequestBody) {
+                    result = await database.collection(vitalSignCollection).updateOne(
+                        { user_id: data.user_id, "vitalSignRequestBody.date": vitalSign.date },
+                        { $set: { "vitalSignRequestBody.$": vitalSign } },
+                        { upsert: true }
+                    );
+                }
                 console.log("Updated vitalSigns are : ", result);
             } else {
-                result = await database.collection(vitalSignCollection).insertOne({ ...data, vitalSigns });
+                result = await database.collection(vitalSignCollection).insertOne(data);
                 console.log("Inserted vitalSigns are : ", result);
             }
 
             await client.close();
 
-            return result;
+            if (result) {
+                return { result, ...data };
+            } else {
+                throw new Error("Failed to add vital sign data");
+            }
 
         } catch (error) {
             console.log('error in createUser is : ' + error);
