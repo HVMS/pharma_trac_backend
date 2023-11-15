@@ -9,12 +9,12 @@ const vitalSignService = new VitalSignSerivce();
 // Login endpoint
 addVitalSignRouter.post('/', async (req: Request, res: Response) => {
     console.log("Request body is : ", req.body);
-    const { user_id, vitalSigns } = req.body;
+    const { user_id, vitalSignRequestBody } = req.body;
 
-    console.log("current_vitalSign are : ", vitalSigns);
+    console.log("current_vitalSign are : ", vitalSignRequestBody);
 
     try {
-        const vitalSignData = await vitalSignService.addVitalSign({ user_id, vitalSigns });
+        const vitalSignData = await vitalSignService.addVitalSign({ user_id, vitalSignRequestBody });
         
         if (vitalSignData) {
             res.json({

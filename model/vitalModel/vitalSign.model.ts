@@ -11,5 +11,5 @@ export interface vitalSign {
 
 export interface vitalSigns {
     user_id: String;
-    vitalSigns: vitalSign[];
+    vitalSignRequestBody: vitalSign[];
 }

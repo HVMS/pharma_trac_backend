@@ -11,7 +11,7 @@ console.log(typeof (vitalSignCollection));
 
 class VitalSignSerivce {
 
-    async addVitalSign(data: { user_id: string, vitalSigns: any[] }) {
+    async addVitalSign(data: { user_id: string, vitalSignRequestBody: any[] }) {
         try {
             const client = await MongoClient.connect(mongoURI, {
                 connectTimeoutMS: 5000,
@@ -20,14 +20,14 @@ class VitalSignSerivce {
 
             const database = client.db(dbName);
 
-            console.log("New vitalSigns are  is ", data);
+            console.log("New vitalSigns are: ", data);
 
             const result = await database.collection(vitalSignCollection).insertOne(data);
 
             console.log(result);
             console.log(typeof (result));
 
-            console.log("Inserted vitalSigns are : ", result);
+            console.log("Inserted vitalSigns are: ", result);
 
             await client.close();
 
