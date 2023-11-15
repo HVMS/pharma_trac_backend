@@ -31,7 +31,7 @@ class VitalSignSerivce {
 
             await client.close();
 
-            return result;
+            return { vitalSignData: result, data };
 
         } catch (error) {
             console.log('error in createUser is : ' + error);
