@@ -20,7 +20,7 @@ addVitalSignRouter.post('/', async (req: Request, res: Response) => {
             res.json({
                 "statusCode": 200,
                 "message": "Vital Signs added or updated successfully",
-                "vitalSignData": vitalSignData
+                "response": vitalSignData
             });
         } else {
             res.json({
