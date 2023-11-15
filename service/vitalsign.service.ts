@@ -28,11 +28,11 @@ class VitalSignSerivce {
 
             if (existingUser) {
                 for (let vitalSign of data.vitalSignRequestBody) {
-                    const existingDate = await database.collection(vitalSignCollection).findOne({ user_id: data.user_id, "vitalSignRequestBody.date": vitalSign.date });
+                    const existingDateTime = await database.collection(vitalSignCollection).findOne({ user_id: data.user_id, "vitalSignRequestBody.date": vitalSign.date, "vitalSignRequestBody.time": vitalSign.time });
 
-                    if (existingDate) {
+                    if (existingDateTime) {
                         result = await database.collection(vitalSignCollection).updateOne(
-                            { user_id: data.user_id, "vitalSignRequestBody.date": vitalSign.date },
+                            { user_id: data.user_id, "vitalSignRequestBody.date": vitalSign.date, "vitalSignRequestBody.time": vitalSign.time },
                             { $set: { "vitalSignRequestBody.$": vitalSign } }
                         );
                     } else {
