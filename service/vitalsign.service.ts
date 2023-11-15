@@ -20,20 +20,32 @@ class VitalSignSerivce {
 
             const database = client.db(dbName);
 
-            console.log("New vitalSigns are: ", data);
+            console.log("New vitalSigns data is ", data);
 
-            const result = await database.collection(vitalSignCollection).insertOne(data);
+            const existingUser = await database.collection(vitalSignCollection).findOne({ user_id: data.user_id });
 
-            console.log(result);
-            console.log(typeof (result));
+            let result;
 
-            console.log("Inserted vitalSigns are: ", result);
+            if (existingUser) {
+                for (let vitalSign of data.vitalSignRequestBody) {
+                    result = await database.collection(vitalSignCollection).updateOne(
+                        { user_id: data.user_id, "vitalSignRequestBody.date": vitalSign.date },
+                        { $set: { "vitalSignRequestBody.$": vitalSign } },
+                        { upsert: true }
+                    );
+                }
+                console.log("Updated vitalSigns are : ", result);
+            } else {
+                result = await database.collection(vitalSignCollection).insertOne(data);
+                console.log("Inserted vitalSigns are : ", result);
+            }
 
             await client.close();
 
-            return { acknowledged: result.acknowledged, 
-                insertedId: result.insertedId, 
-                ...data };
+            return { 
+                result, 
+                ...data 
+            };
 
         } catch (error) {
             console.log('error in createUser is : ' + error);
