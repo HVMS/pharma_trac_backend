@@ -5,6 +5,7 @@ import { registerFinalUser } from "./controller/users/registerFinalUser";
 import { updateUserRouter } from "./controller/users/updateUser";
 import { userById } from "./controller/users/getUserById";
 import { addVitalSignRouter } from "./controller/vitals/addVitalSign";
+import { getBloodSugarRouter } from "./controller/vitals/getBloodSugar";
 
 //For env File 
 dotenv.config();
@@ -27,6 +28,7 @@ app.use('/user', userById);
 app.use('/updateUser', updateUserRouter);
 
 app.use('/addVitalSign', addVitalSignRouter);
+app.use('/getBloodSugar', getBloodSugarRouter);
 
 app.listen(port, () => {
   console.log(`Server is Fire at http://localhost:${port}`);

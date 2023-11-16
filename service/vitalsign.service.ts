@@ -61,6 +61,33 @@ class VitalSignSerivce {
         }
     }
 
+    async getBloodSugarData(userId: string) {
+        try {
+            const client = await MongoClient.connect(mongoURI, {
+                connectTimeoutMS: 5000,
+                socketTimeoutMS: 3000,
+            });
+
+            const database = client.db(dbName);
+
+            const userData = await database.collection(vitalSignCollection).findOne({ user_id: userId });
+
+            if (!userData) {
+                console.log("User not found");
+                return;
+            }
+
+            const bloodSugarData = userData.vitalSignRequestBody.filter((entry: any) => entry.blood_sugar !== null);
+
+            await client.close();
+
+            return bloodSugarData;
+
+        } catch (error) {
+            console.log('error in getBloodSugarData is : ' + error);
+        }
+    }
+
 
 }
 
