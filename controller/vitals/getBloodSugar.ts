@@ -1,14 +1,15 @@
 import express, {Request, Response} from 'express';
-import { vitalSigns } from '../../model/vitalModel/vitalSign.model';
 import VitalSignSerivce from '../../service/vitalsign.service';
 
 export const getBloodSugarRouter = express.Router();
 
 const vitalSignService = new VitalSignSerivce();
 
-getBloodSugarRouter.post('/', async (req: Request, res: Response) => {
+getBloodSugarRouter.get('/', async (req: Request, res: Response) => {
     console.log("Request body is : ", req.body);
-    const { user_id } = req.body;
+    const user_id = req.query.id as string;
+
+    console.log("User Id is : ", user_id);
 
     try {
         const bloodSugarData = await vitalSignService.getBloodSugarData(user_id);
