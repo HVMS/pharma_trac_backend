@@ -295,8 +295,12 @@ class VitalSignSerivce {
                 console.log("Difference is : ", dateTimeB - dateTimeA);
                 return dateTimeB - dateTimeA;
             });
+
+            console.log("Sorted Blood Pressure Data is : ", sortedBloodPressureData);
     
             const latestBloodPressureData = sortedBloodPressureData[0];
+
+            console.log("Latest Blood Pressure Data is : ", latestBloodPressureData);
     
             await client.close();
     
