@@ -9,6 +9,7 @@ import { getBloodSugarRouter } from "./controller/vitals/getBloodSugar";
 import { getBodyTemperatureRouter } from "./controller/vitals/getBodyTemperature";
 import { getBloodCholesterolRouter } from "./controller/vitals/getBloodCholesterol";
 import { getHeartRateRouter } from "./controller/vitals/getHeatRate";
+import { getBloodPressureRouter } from "./controller/vitals/getBloodPressure";
 
 //For env File 
 dotenv.config();
@@ -31,6 +32,7 @@ app.use('/user', userById);
 app.use('/updateUser', updateUserRouter);
 
 app.use('/addVitalSign', addVitalSignRouter);
+app.use('/getBloodPressure', getBloodPressureRouter);
 app.use('/getBloodSugar', getBloodSugarRouter);
 app.use('/getBloodCholesterol', getBloodCholesterolRouter);
 app.use('/getBodyTemperature', getBodyTemperatureRouter);

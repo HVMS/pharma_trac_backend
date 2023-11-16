@@ -195,9 +195,9 @@ class VitalSignSerivce {
             }
 
             const heartRateData = userData.vitalSignRequestBody
-            .filter((entry: any) => entry.pulse_rate !== null && entry.pulse_rate !== undefined)
+            .filter((entry: any) => entry.heart_rate !== null && entry.heart_rate !== undefined)
             .map((entry: any) => ({
-                pulse_rate: entry.pulse_rate,
+                heart_rate: entry.heart_rate,
                 date: entry.date,
                 time: entry.time
             }));
@@ -208,6 +208,45 @@ class VitalSignSerivce {
 
             if (heartRateData) {
                 return heartRateData;
+            } else {
+                return [];
+            }
+
+        } catch (error) {
+            console.log('error in getHeartRateData is : ' + error);
+        }
+    }
+
+    async getBloodPressureData(userId: string) {
+        try {
+            const client = await MongoClient.connect(mongoURI, {
+                connectTimeoutMS: 5000,
+                socketTimeoutMS: 3000,
+            });
+
+            const database = client.db(dbName);
+
+            const userData = await database.collection(vitalSignCollection).findOne({ user_id: userId });
+
+            if (!userData) {
+                console.log("User not found");
+                return;
+            }
+
+            const bloodPressureData = userData.vitalSignRequestBody
+            .filter((entry: any) => entry.blood_pressure !== null && entry.blood_pressure !== undefined)
+            .map((entry: any) => ({
+                blood_pressure: entry.blood_pressure,
+                date: entry.date,
+                time: entry.time
+            }));
+
+            console.log("Heart rate data is : ", bloodPressureData);
+
+            await client.close();
+
+            if (bloodPressureData) {
+                return bloodPressureData;
             } else {
                 return [];
             }
