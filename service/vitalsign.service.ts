@@ -1,5 +1,4 @@
 import { Db, MongoClient, ObjectId } from "mongodb";
-import { vitalSign, vitalSigns } from "../model/vitalModel/vitalSign.model";
 import envVariables from "../importenv";
 
 const mongoURI = envVariables.mongoURI;
@@ -241,7 +240,7 @@ class VitalSignSerivce {
                 time: entry.time
             }));
 
-            console.log("Heart rate data is : ", bloodPressureData);
+            console.log("Blood Pressure Data is : ", bloodPressureData);
 
             await client.close();
 
@@ -252,10 +251,54 @@ class VitalSignSerivce {
             }
 
         } catch (error) {
-            console.log('error in getHeartRateData is : ' + error);
+            console.log('error in getBloodPressureData is : ' + error);
         }
     }
 
+    async getLatestBloodPressureData(userId: string) {
+        try {
+            const client = await MongoClient.connect(mongoURI, {
+                connectTimeoutMS: 5000,
+                socketTimeoutMS: 3000,
+            });
+    
+            const database = client.db(dbName);
+    
+            const userData = await database.collection(vitalSignCollection).findOne({ user_id: userId });
+    
+            if (!userData) {
+                console.log("User not found");
+                return;
+            }
+    
+            const bloodPressureData = userData.vitalSignRequestBody
+                .filter((entry: any) => entry.blood_pressure !== null && entry.blood_pressure !== undefined)
+                .map((entry: any) => ({
+                    blood_pressure: entry.blood_pressure,
+                    date: entry.date,
+                    time: entry.time
+                }));
+    
+            const sortedBloodPressureData = bloodPressureData.sort((a: any, b: any) => {
+                const dateTimeA = Date.parse(a.date + ' ' + a.time);
+                const dateTimeB = Date.parse(b.date + ' ' + b.time);
+                return dateTimeB - dateTimeA;
+            });
+    
+            const latestBloodPressureData = sortedBloodPressureData[0];
+    
+            await client.close();
+    
+            if (latestBloodPressureData) {
+                return latestBloodPressureData;
+            } else {
+                return [];
+            }
+    
+        } catch (error) {
+            console.log('error in getLatestBloodPressureData is : ' + error);
+        }
+    }
 
 }
 
