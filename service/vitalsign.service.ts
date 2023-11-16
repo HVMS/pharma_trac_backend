@@ -77,11 +77,11 @@ class VitalSignSerivce {
                 return;
             }
 
-            const bloodSugarData = userData.vitalSignRequestBody.filter((entry: any) => entry.blood_sugar !== null);
+            // const bloodSugarData = userData.vitalSignRequestBody.filter((entry: any) => entry.blood_sugar !== null);
             
-            console.log("Blood sugar data is : ",bloodSugarData);
+            // console.log("Blood sugar data is : ",bloodSugarData);
 
-            const bloodSugarData1 = userData.vitalSignRequestBody
+            const bloodSugarData = userData.vitalSignRequestBody
             .filter((entry: any) => entry.blood_sugar !== null)
             .map((entry: any) => ({
                 blood_sugar: entry.blood_sugar,
@@ -89,7 +89,7 @@ class VitalSignSerivce {
                 time: entry.time
             }));
 
-            console.log("Blood sugar data 1 is : ",bloodSugarData1);
+            console.log("Blood sugar data 1 is : ",bloodSugarData);
 
             await client.close();
 
