@@ -7,7 +7,7 @@ const vitalSignService = new VitalSignSerivce();
 
 getBloodSugarRouter.get('/', async (req: Request, res: Response) => {
     console.log("Request body is : ", req.body);
-    const user_id = req.query.id as string;
+    const user_id = req.query.user_id as string;
 
     console.log("User Id is : ", user_id);
 
