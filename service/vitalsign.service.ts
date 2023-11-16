@@ -77,10 +77,6 @@ class VitalSignSerivce {
                 return;
             }
 
-            // const bloodSugarData = userData.vitalSignRequestBody.filter((entry: any) => entry.blood_sugar !== null);
-            
-            // console.log("Blood sugar data is : ",bloodSugarData);
-
             const bloodSugarData = userData.vitalSignRequestBody
             .filter((entry: any) => entry.blood_sugar !== null && entry.blood_sugar !== undefined)
             .map((entry: any) => ({
@@ -89,7 +85,7 @@ class VitalSignSerivce {
                 time: entry.time
             }));
 
-            console.log("Blood sugar data 1 is : ",bloodSugarData);
+            console.log("Blood sugar data is : ", bloodSugarData);
 
             await client.close();
 
@@ -97,6 +93,111 @@ class VitalSignSerivce {
 
         } catch (error) {
             console.log('error in getBloodSugarData is : ' + error);
+        }
+    }
+
+    async getBloodCholesterolData(userId: string) {
+        try {
+            const client = await MongoClient.connect(mongoURI, {
+                connectTimeoutMS: 5000,
+                socketTimeoutMS: 3000,
+            });
+
+            const database = client.db(dbName);
+
+            const userData = await database.collection(vitalSignCollection).findOne({ user_id: userId });
+
+            if (!userData) {
+                console.log("User not found");
+                return;
+            }
+
+            const bloodCholesterolData = userData.vitalSignRequestBody
+            .filter((entry: any) => entry.blood_cholesterol !== null && entry.blood_cholesterol !== undefined)
+            .map((entry: any) => ({
+                blood_cholesterol: entry.blood_cholesterol,
+                date: entry.date,
+                time: entry.time
+            }));
+
+            console.log("Blood Cholesterol data is : ", bloodCholesterolData);
+
+            await client.close();
+
+            return bloodCholesterolData;
+
+        } catch (error) {
+            console.log('error in getBloodCholesterolData is : ' + error);
+        }
+    }
+
+    async getBodyTemperatureData(userId: string) {
+        try {
+            const client = await MongoClient.connect(mongoURI, {
+                connectTimeoutMS: 5000,
+                socketTimeoutMS: 3000,
+            });
+
+            const database = client.db(dbName);
+
+            const userData = await database.collection(vitalSignCollection).findOne({ user_id: userId });
+
+            if (!userData) {
+                console.log("User not found");
+                return;
+            }
+
+            const temperatureData = userData.vitalSignRequestBody
+            .filter((entry: any) => entry.temperature !== null && entry.temperature !== undefined)
+            .map((entry: any) => ({
+                temperature: entry.temperature,
+                date: entry.date,
+                time: entry.time
+            }));
+
+            console.log("Body temperature data is : ", temperatureData);
+
+            await client.close();
+
+            return temperatureData;
+
+        } catch (error) {
+            console.log('error in getBodyTemperatureData is : ' + error);
+        }
+    }
+
+    async getHeartRateData(userId: string) {
+        try {
+            const client = await MongoClient.connect(mongoURI, {
+                connectTimeoutMS: 5000,
+                socketTimeoutMS: 3000,
+            });
+
+            const database = client.db(dbName);
+
+            const userData = await database.collection(vitalSignCollection).findOne({ user_id: userId });
+
+            if (!userData) {
+                console.log("User not found");
+                return;
+            }
+
+            const heartRateData = userData.vitalSignRequestBody
+            .filter((entry: any) => entry.pulse_rate !== null && entry.pulse_rate !== undefined)
+            .map((entry: any) => ({
+                pulse_rate: entry.pulse_rate,
+                date: entry.date,
+                time: entry.time
+            }));
+
+            console.log("Heart rate data is : ", heartRateData);
+
+            await client.close();
+
+            return heartRateData;
+
+        } catch (error) {
+            console.log('error in getHeartRateData is : ' + error);
         }
     }
 
