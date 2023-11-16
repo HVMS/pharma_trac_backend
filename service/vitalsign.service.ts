@@ -285,6 +285,8 @@ class VitalSignSerivce {
                     date: entry.date,
                     time: entry.time
                 }));
+
+            console.log("Blood Pressure Data is : ", bloodPressureData);
     
             const sortedBloodPressureData = bloodPressureData.sort((a: any, b: any) => {
                 const dateTimeA = Date.parse(a.date + ' ' + a.time);
