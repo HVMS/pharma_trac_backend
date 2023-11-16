@@ -82,7 +82,7 @@ class VitalSignSerivce {
             // console.log("Blood sugar data is : ",bloodSugarData);
 
             const bloodSugarData = userData.vitalSignRequestBody
-            .filter((entry: any) => entry.blood_sugar !== null)
+            .filter((entry: any) => entry.blood_sugar !== null && entry.blood_sugar !== undefined)
             .map((entry: any) => ({
                 blood_sugar: entry.blood_sugar,
                 date: entry.date,
