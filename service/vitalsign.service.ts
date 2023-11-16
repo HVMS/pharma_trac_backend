@@ -128,7 +128,11 @@ class VitalSignSerivce {
 
             await client.close();
 
-            return bloodCholesterolData;
+            if (bloodCholesterolData) {
+                return bloodCholesterolData;
+            } else {
+                return [];
+            }
 
         } catch (error) {
             console.log('error in getBloodCholesterolData is : ' + error);
@@ -163,7 +167,11 @@ class VitalSignSerivce {
 
             await client.close();
 
-            return temperatureData;
+            if (temperatureData) {
+                return temperatureData;
+            } else {
+                return [];
+            }
 
         } catch (error) {
             console.log('error in getBodyTemperatureData is : ' + error);
@@ -198,7 +206,11 @@ class VitalSignSerivce {
 
             await client.close();
 
-            return heartRateData;
+            if (heartRateData) {
+                return heartRateData;
+            } else {
+                return [];
+            }
 
         } catch (error) {
             console.log('error in getHeartRateData is : ' + error);
