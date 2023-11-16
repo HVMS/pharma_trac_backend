@@ -6,6 +6,9 @@ import { updateUserRouter } from "./controller/users/updateUser";
 import { userById } from "./controller/users/getUserById";
 import { addVitalSignRouter } from "./controller/vitals/addVitalSign";
 import { getBloodSugarRouter } from "./controller/vitals/getBloodSugar";
+import { getBodyTemperatureRouter } from "./controller/vitals/getBodyTemperature";
+import { getBloodCholesterolRouter } from "./controller/vitals/getBloodCholesterol";
+import { getHeartRateRouter } from "./controller/vitals/getHeatRate";
 
 //For env File 
 dotenv.config();
@@ -29,6 +32,9 @@ app.use('/updateUser', updateUserRouter);
 
 app.use('/addVitalSign', addVitalSignRouter);
 app.use('/getBloodSugar', getBloodSugarRouter);
+app.use('/getBloodCholesterol', getBloodCholesterolRouter);
+app.use('/getBodyTemperature', getBodyTemperatureRouter);
+app.use('/getHeartRate', getHeartRateRouter);
 
 app.listen(port, () => {
   console.log(`Server is Fire at http://localhost:${port}`);
