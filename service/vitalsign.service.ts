@@ -89,7 +89,11 @@ class VitalSignSerivce {
 
             await client.close();
 
-            return bloodSugarData;
+            if (bloodSugarData) {
+                return bloodSugarData;
+            } else {
+                return [];
+            }
 
         } catch (error) {
             console.log('error in getBloodSugarData is : ' + error);
