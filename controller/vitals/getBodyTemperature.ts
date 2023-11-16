@@ -12,13 +12,13 @@ getBodyTemperatureRouter.get('/', async (req: Request, res: Response) => {
     console.log("User Id is : ", user_id);
 
     try {
-        const bloodSugarData = await vitalSignService.getBodyTemperatureData(user_id);
+        const bodyTemperatureData = await vitalSignService.getBodyTemperatureData(user_id);
         
-        if (bloodSugarData) {
+        if (bodyTemperatureData) {
             res.json({
                 "statusCode": 200,
                 "message": "Body Temperature data retrieved Successfully",
-                "result": bloodSugarData,
+                "result": bodyTemperatureData,
             });
         } else {
             res.json({

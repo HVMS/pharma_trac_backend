@@ -12,13 +12,13 @@ getHeartRateRouter.get('/', async (req: Request, res: Response) => {
     console.log("User Id is : ", user_id);
 
     try {
-        const bloodSugarData = await vitalSignService.getHeartRateData(user_id);
+        const heartRateData = await vitalSignService.getHeartRateData(user_id);
         
-        if (bloodSugarData) {
+        if (heartRateData) {
             res.json({
                 "statusCode": 200,
                 "message": "Heart Rate data retrieved Successfully",
-                "result": bloodSugarData,
+                "result": heartRateData,
             });
         } else {
             res.json({

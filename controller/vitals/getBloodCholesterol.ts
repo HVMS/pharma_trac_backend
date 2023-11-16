@@ -12,13 +12,13 @@ getBloodCholesterolRouter.get('/', async (req: Request, res: Response) => {
     console.log("User Id is : ", user_id);
 
     try {
-        const bloodSugarData = await vitalSignService.getBodyTemperatureData(user_id);
+        const bloodCholesterolData = await vitalSignService.getBloodCholesterolData(user_id);
         
-        if (bloodSugarData) {
+        if (bloodCholesterolData) {
             res.json({
                 "statusCode": 200,
                 "message": "Blood Cholesterol data retrieved Successfully",
-                "result": bloodSugarData,
+                "result": bloodCholesterolData,
             });
         } else {
             res.json({
