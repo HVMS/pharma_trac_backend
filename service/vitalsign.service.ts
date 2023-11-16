@@ -271,8 +271,13 @@ class VitalSignSerivce {
                 return;
             }
     
+            const now = new Date();
+    
             const bloodPressureData = userData.vitalSignRequestBody
-                .filter((entry: any) => entry.blood_pressure !== null && entry.blood_pressure !== undefined)
+                .filter((entry: any) => {
+                    const entryDateTime = new Date(entry.date + ' ' + entry.time);
+                    return entry.blood_pressure !== null && entry.blood_pressure !== undefined && entryDateTime <= now;
+                })
                 .map((entry: any) => ({
                     blood_pressure: entry.blood_pressure,
                     date: entry.date,
