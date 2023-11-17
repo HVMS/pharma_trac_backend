@@ -279,7 +279,7 @@ class VitalSignSerivce {
                     console.log("date is : ", entry.date);
                     console.log("time is : ", entry.time);
                     const entryDateTime = new Date(entry.date + ' ' + entry.time);
-                    return entry.blood_pressure !== null && entry.blood_pressure !== undefined && entryDateTime.getTime() <= now.getTime();
+                    return entry.blood_pressure !== null && entry.blood_pressure !== undefined && entryDateTime.getDate() <= now.getDate() && entryDateTime.getTime() <= now.getTime();
                 })
                 .map((entry: any) => ({
                     blood_pressure: entry.blood_pressure,
