@@ -254,73 +254,7 @@ class VitalSignSerivce {
             console.log('error in getBloodPressureData is : ' + error);
         }
     }
-
-    async getLatestBloodPressureData(userId: string) {
-        try {
-            const client = await MongoClient.connect(mongoURI, {
-                connectTimeoutMS: 5000,
-                socketTimeoutMS: 3000,
-            });
     
-            const database = client.db(dbName);
-    
-            const userData = await database.collection(vitalSignCollection).findOne({ user_id: userId });
-    
-            if (!userData) {
-                console.log("User not found");
-                return;
-            }
-    
-            const now = new Date();
-            console.log("Now is : ", now);
-            console.log("Now date time is : ", now.getDate() + ' ' + now.getTime());
-    
-            const bloodPressureData = userData.vitalSignRequestBody
-                .filter((entry: any) => {
-                    console.log("date is : ", entry.date);
-                    console.log("Now date is : ", now.getDate());
-                    console.log("time is : ", entry.time);
-                    console.log("Now time is : ", now.getTime());
-                    const entryDateTime = new Date(entry.date + ' ' + entry.time);
-                    return entry.blood_pressure !== null && entry.blood_pressure !== undefined && entryDateTime.getDate() <= now.getDate() && entryDateTime.getTime() <= now.getTime();
-                })
-                .map((entry: any) => ({
-                    blood_pressure: entry.blood_pressure,
-                    date: entry.date,
-                    time: entry.time
-                }));
-
-            console.log("Blood Pressure Data is : ", bloodPressureData);
-    
-            const sortedBloodPressureData = bloodPressureData.sort((a: any, b: any) => {
-                const dateTimeA = Date.parse(a.date + ' ' + a.time);
-                console.log("Date time A is : ", a.date + ' ' + a.time);
-                const dateTimeB = Date.parse(b.date + ' ' + b.time);
-                console.log("Date time B is : ", b.date + ' ' + b.time);
-
-                console.log("Difference is : ", dateTimeB - dateTimeA);
-                return dateTimeB - dateTimeA;
-            });
-
-            console.log("Sorted Blood Pressure Data is : ", sortedBloodPressureData);
-    
-            const latestBloodPressureData = sortedBloodPressureData[0];
-
-            console.log("Latest Blood Pressure Data is : ", latestBloodPressureData);
-    
-            await client.close();
-    
-            if (latestBloodPressureData) {
-                return latestBloodPressureData;
-            } else {
-                return [];
-            }
-    
-        } catch (error) {
-            console.log('error in getLatestBloodPressureData is : ' + error);
-        }
-    }
-
 }
 
 export default VitalSignSerivce;
