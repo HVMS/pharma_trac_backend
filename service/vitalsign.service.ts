@@ -290,9 +290,9 @@ class VitalSignSerivce {
     
             const sortedBloodPressureData = bloodPressureData.sort((a: any, b: any) => {
                 const dateTimeA = Date.parse(a.date + ' ' + a.time);
-                console.log("Date time A is : ", dateTimeA);
+                console.log("Date time A is : ", a.date + ' ' + a.time);
                 const dateTimeB = Date.parse(b.date + ' ' + b.time);
-                console.log("Date time B is : ", dateTimeB);
+                console.log("Date time B is : ", b.date + ' ' + b.time);
 
                 console.log("Difference is : ", dateTimeB - dateTimeA);
                 return dateTimeB - dateTimeA;
