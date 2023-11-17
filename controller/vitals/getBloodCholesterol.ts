@@ -18,7 +18,7 @@ getBloodCholesterolRouter.get('/', async (req: Request, res: Response) => {
             res.json({
                 "statusCode": 200,
                 "message": "Blood Cholesterol data retrieved Successfully",
-                "result": bloodCholesterolData,
+                "response": bloodCholesterolData,
             });
         } else {
             res.json({

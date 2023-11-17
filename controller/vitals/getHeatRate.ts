@@ -18,7 +18,7 @@ getHeartRateRouter.get('/', async (req: Request, res: Response) => {
             res.json({
                 "statusCode": 200,
                 "message": "Heart Rate data retrieved Successfully",
-                "result": heartRateData,
+                "response": heartRateData,
             });
         } else {
             res.json({

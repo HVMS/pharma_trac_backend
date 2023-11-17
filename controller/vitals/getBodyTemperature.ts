@@ -18,7 +18,7 @@ getBodyTemperatureRouter.get('/', async (req: Request, res: Response) => {
             res.json({
                 "statusCode": 200,
                 "message": "Body Temperature data retrieved Successfully",
-                "result": bodyTemperatureData,
+                "response": bodyTemperatureData,
             });
         } else {
             res.json({

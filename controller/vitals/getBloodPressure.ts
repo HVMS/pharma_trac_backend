@@ -17,13 +17,13 @@ getBloodPressureRouter.get('/', async (req: Request, res: Response) => {
         if (bloodPressureData) {
             res.json({
                 "statusCode": 200,
-                "message": "Blood Sugar data retrieved Successfully",
-                "result": bloodPressureData,
+                "message": "Blood Pressure data retrieved Successfully",
+                "response": bloodPressureData,
             });
         } else {
             res.json({
                 "statusCode": 404,
-                "message": "Failed to retrieve Blood Sugar data",
+                "message": "Failed to retrieve Blood pressue data",
             });
         }
     } catch (error: any) {

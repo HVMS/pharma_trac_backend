@@ -18,7 +18,7 @@ getBloodSugarRouter.get('/', async (req: Request, res: Response) => {
             res.json({
                 "statusCode": 200,
                 "message": "Blood Sugar data retrieved Successfully",
-                "result": bloodSugarData,
+                "response": bloodSugarData,
             });
         } else {
             res.json({

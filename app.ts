@@ -10,7 +10,6 @@ import { getBodyTemperatureRouter } from "./controller/vitals/getBodyTemperature
 import { getBloodCholesterolRouter } from "./controller/vitals/getBloodCholesterol";
 import { getHeartRateRouter } from "./controller/vitals/getHeatRate";
 import { getBloodPressureRouter } from "./controller/vitals/getBloodPressure";
-import { getLatestBloodPressureRouter } from "./controller/vitals/getLatestBloodPressure";
 
 //For env File 
 dotenv.config();
@@ -38,8 +37,6 @@ app.use('/getBloodSugar', getBloodSugarRouter);
 app.use('/getBloodCholesterol', getBloodCholesterolRouter);
 app.use('/getBodyTemperature', getBodyTemperatureRouter);
 app.use('/getHeartRate', getHeartRateRouter);
-
-app.use('/getLatestBloodPressure', getLatestBloodPressureRouter);
 
 app.listen(port, () => {
   console.log(`Server is Fire at http://localhost:${port}`);
