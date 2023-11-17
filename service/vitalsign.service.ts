@@ -272,11 +272,12 @@ class VitalSignSerivce {
             }
     
             const now = new Date();
+            console.log("Now is : ", now);
     
             const bloodPressureData = userData.vitalSignRequestBody
                 .filter((entry: any) => {
                     const entryDateTime = new Date(entry.date + ' ' + entry.time);
-                    console.log("Entry date time is : ", entryDateTime);
+                    console.log("Entry date time is : ", entryDateTime.getTime());
                     return entry.blood_pressure !== null && entry.blood_pressure !== undefined && entryDateTime.getTime() <= now.getTime();
                 })
                 .map((entry: any) => ({
@@ -284,14 +285,24 @@ class VitalSignSerivce {
                     date: entry.date,
                     time: entry.time
                 }));
+
+            console.log("Blood Pressure Data is : ", bloodPressureData);
     
             const sortedBloodPressureData = bloodPressureData.sort((a: any, b: any) => {
                 const dateTimeA = Date.parse(a.date + ' ' + a.time);
+                console.log("Date time A is : ", a.date + ' ' + a.time);
                 const dateTimeB = Date.parse(b.date + ' ' + b.time);
+                console.log("Date time B is : ", b.date + ' ' + b.time);
+
+                console.log("Difference is : ", dateTimeB - dateTimeA);
                 return dateTimeB - dateTimeA;
             });
 
+            console.log("Sorted Blood Pressure Data is : ", sortedBloodPressureData);
+    
             const latestBloodPressureData = sortedBloodPressureData[0];
+
+            console.log("Latest Blood Pressure Data is : ", latestBloodPressureData);
     
             await client.close();
     
