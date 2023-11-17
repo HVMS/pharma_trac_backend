@@ -244,11 +244,7 @@ class VitalSignSerivce {
 
             await client.close();
 
-            if (bloodPressureData) {
-                return bloodPressureData;
-            } else {
-                return [];
-            }
+            return bloodPressureData;
 
         } catch (error) {
             console.log('error in getBloodPressureData is : ' + error);
