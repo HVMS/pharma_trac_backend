@@ -10,6 +10,7 @@ import { getBodyTemperatureRouter } from "./controller/vitals/getBodyTemperature
 import { getBloodCholesterolRouter } from "./controller/vitals/getBloodCholesterol";
 import { getHeartRateRouter } from "./controller/vitals/getHeatRate";
 import { getBloodPressureRouter } from "./controller/vitals/getBloodPressure";
+import { loginRouter } from "./controller/users/login";
 
 //For env File 
 dotenv.config();
@@ -28,6 +29,7 @@ app.get('/', (req: Request, res: Response) => {
 // Redirect requests to the routers
 app.use('/register', registerRouter);
 app.use('/registerfinal', registerFinalUser);
+app.use('/loginRouter', loginRouter);
 app.use('/user', userById);
 app.use('/updateUser', updateUserRouter);
 

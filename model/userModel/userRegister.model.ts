@@ -1,5 +1,3 @@
-import { ObjectId } from "mongodb";
-
 interface userRegister {
     email_address?: String;
     password?: String;

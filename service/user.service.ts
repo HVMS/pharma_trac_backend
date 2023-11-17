@@ -2,6 +2,7 @@ import { Db, MongoClient, ObjectId } from "mongodb";
 import user from "../model/userModel/user.model";
 import userRegister from "../model/userModel/userRegister.model";
 import envVariables from "../importenv";
+import bcrypt from 'bcrypt';
 
 const mongoURI = envVariables.mongoURI;
 const dbName = envVariables.dbName;
@@ -12,6 +13,40 @@ console.log(userRegistrationDatabase);
 console.log(typeof (userRegistrationDatabase));
 
 class UserService {
+
+    async loginUser(email_address: string, password: string){
+        try{
+            const client = await MongoClient.connect(mongoURI, {
+                connectTimeoutMS: 5000,
+                socketTimeoutMS: 30000,
+            });
+
+            const db: Db = client.db(dbName);
+            console.log("Email address is : ", email_address);
+            console.log("Password is : ", password);
+
+            const returned_user = await db
+                .collection(userRegistrationDatabase)
+                .findOne({ email_address: email_address });
+
+            if (returned_user) {
+                console.log("Returned user is : ", returned_user);
+
+                const isPasswordMatched = await bcrypt.compare(password, returned_user.password);
+
+                if (isPasswordMatched) {
+                    console.log("Password matched");
+                    return returned_user;
+                }
+
+            } else {
+                console.log("User not found");
+            }
+
+        } catch (error) {
+            console.log(error);
+        }
+    }
 
     async getUser(userRegister: userRegister) {
         try {
@@ -83,6 +118,14 @@ class UserService {
             console.log("Before mongodb insertion data is : ", userRegister);
 
             console.log("userDatabase name is : ", userRegistrationDatabase);
+
+            // check here password is empty or not before hashing
+            if (!userRegister.password) {
+                throw new Error('Password is required');
+            }
+          
+            const hashedPassword = await bcrypt.hash(userRegister.password.toString(), 10);
+            userRegister.password = hashedPassword;
 
             const newRegisteredUser = await database.collection(userRegistrationDatabase).insertOne({
                 ...userRegister,
