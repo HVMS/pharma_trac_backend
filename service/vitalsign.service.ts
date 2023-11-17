@@ -273,11 +273,14 @@ class VitalSignSerivce {
     
             const now = new Date();
             console.log("Now is : ", now);
+            console.log("Now date time is : ", now.getDate() + ' ' + now.getTime());
     
             const bloodPressureData = userData.vitalSignRequestBody
                 .filter((entry: any) => {
                     console.log("date is : ", entry.date);
+                    console.log("Now date is : ", now.getDate());
                     console.log("time is : ", entry.time);
+                    console.log("Now time is : ", now.getTime());
                     const entryDateTime = new Date(entry.date + ' ' + entry.time);
                     return entry.blood_pressure !== null && entry.blood_pressure !== undefined && entryDateTime.getDate() <= now.getDate() && entryDateTime.getTime() <= now.getTime();
                 })
