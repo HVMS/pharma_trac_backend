@@ -20,7 +20,7 @@ loginRouter.post('/', async (req: Request, res: Response) => {
         res.json({
             "statusCode": 200,
             "message": "User logged in successfully",
-            "user": user
+            "response": user
         });
     } else {
         res.json({

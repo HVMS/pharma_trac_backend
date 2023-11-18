@@ -29,7 +29,7 @@ app.get('/', (req: Request, res: Response) => {
 // Redirect requests to the routers
 app.use('/register', registerRouter);
 app.use('/registerfinal', registerFinalUser);
-app.use('/loginRouter', loginRouter);
+app.use('/login', loginRouter);
 app.use('/user', userById);
 app.use('/updateUser', updateUserRouter);
 
