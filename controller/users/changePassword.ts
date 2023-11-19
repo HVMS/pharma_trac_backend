@@ -20,12 +20,14 @@ changePasswordRouter.patch('/', async (req: Request, res: Response) => {
         const updatedUser = await userService.changePassword(user_id, password, confirmPassword);
         
         if (!updatedUser) {
-            res.status(404).send({message: 'User not found'});
-            return;
+            res.json({
+                "statusCode": 404,
+                "message": "User not found.",
+            });
         }else{
-            console.log("Updated user is : ", updatedUser);
-            res.status(200).send({
-                message: 'User updated successfully',
+            res.json({
+                "statusCode": 200,
+                "message": "Password Updated Successfully.",
             });
         }
 
