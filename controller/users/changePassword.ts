@@ -6,14 +6,18 @@ export const changePasswordRouter = express.Router();
 const userService = new UserService();
 // Login endpoint
 changePasswordRouter.patch('/', async (req: Request, res: Response) => {
-    const {_userId, password, confirmPassword} = req.body;
 
-    console.log("User Id is : ", _userId);
+    console.log("Request body is : ", req.body);
+    const user_id = req.body.user_id;
+    const password = req.body.password;
+    const confirmPassword = req.body.confirmPassword;
+
+    console.log("User Id is : ", user_id);
     console.log("Password is : ", password);
     console.log("Confirm Password is : ", confirmPassword);
 
     try {
-        const updatedUser = await userService.changePassword(_userId, password, confirmPassword);
+        const updatedUser = await userService.changePassword(user_id, password, confirmPassword);
         
         if (!updatedUser) {
             res.status(404).send({message: 'User not found'});
