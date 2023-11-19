@@ -204,6 +204,60 @@ class UserService {
         }
     }
 
+    async changePassword(_userId: string, password: string, confirmPassword: string){
+        try{
+
+            const client = await MongoClient.connect(mongoURI, {
+                connectTimeoutMS: 5000,
+                socketTimeoutMS: 30000,
+            });
+
+            const db: Db = client.db(dbName);
+
+            console.log("User Id is : ", _userId);
+            console.log("Password is : ", password);
+            console.log("Confirm Password is : ", confirmPassword);
+
+            const users = db.collection(userRegistrationDatabase);
+            const user = await users.findOne({ _id: new ObjectId(_userId) });
+
+            // now change the password into the encrypted form and update the user as well as the confirmation password too
+            if (!user) {
+                throw new Error('User not found');
+            }
+
+            if (!password) {
+                throw new Error('Password is required');
+            }
+
+            if (password !== confirmPassword) {
+                throw new Error('Passwords do not match');
+            }
+
+            const hashedPassword = await bcrypt.hash(password.toString(), 10);
+            const updatedUser = await users.findOneAndUpdate(
+                { _id: new ObjectId(_userId) },
+                {
+                    $set: {
+                        password: hashedPassword,
+                        confirmPassword: confirmPassword,
+                    },
+                }
+            );
+
+            await client.close();
+
+            if (updatedUser) {
+                return "Password changed successfully";
+            } else {
+                return null;
+            }
+
+        } catch (error) {
+            console.log('Error in changePasswordRouter:', error);
+        }
+    }
+
 }
 
 export default UserService;
