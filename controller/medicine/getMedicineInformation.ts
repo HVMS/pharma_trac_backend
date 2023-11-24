@@ -14,21 +14,20 @@ getMedicineInformationRouter.get('/', async (req: Request, res: Response) => {
     try {
         const medicineList: any = await medicineService.getMedicineInfo();
         
-        if (!medicineList) {
+        if (!medicineList || medicineList.length === 0) {
             res.json({
-                "statusCode": 404,
-                "message": "Medicines not found.",
+                "message": "No medicine found"
             });
         }else{
             res.json({
-                "statusCode": 200,
-                "message": "Medicine found successfully.",
                 "data": medicineList,
             });
         }
 
         res.json(medicineList);
     } catch (error: any) {
-        res.status(500).send({message: error.message});
+        res.json({
+            "data": "error occured",
+        });
     }
 });

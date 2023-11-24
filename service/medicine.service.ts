@@ -79,6 +79,9 @@ class MedicineService {
                 throw error;
             }
 
+            console.log("Final Medicine List is : ");
+            console.log(finalMedicineList);
+
             return finalMedicineList;
 
         } catch (error) {
