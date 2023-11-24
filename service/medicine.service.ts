@@ -1,9 +1,9 @@
 import * as cheerio from "cheerio";
 import axios from 'axios';
 
-const baseURL = "https://www.drugs.com/";
+const baseURL = "https://www.drugs.com";
 
-const drug_information_url = baseURL + "drug_information.html";
+const drug_information_url = baseURL + "/drug_information.html";
 
 class MedicineService {
     async getMedicineInfo(){
