@@ -92,8 +92,7 @@ class MedicineService {
                         });
 
                         const medicine = await medicinePromise;
-                        console.log("Medicine is : ");
-                        console.log(medicine);
+                        console.log("Medicine is : ", medicine);
                     }
 
                     return [];
@@ -104,10 +103,7 @@ class MedicineService {
                 throw error;
             }
 
-            console.log("Final Medicine List is : ");
-            console.log(finalMedicineList);
-
-            return finalMedicineList;
+            return [];
 
         } catch (error) {
             console.error(error);
