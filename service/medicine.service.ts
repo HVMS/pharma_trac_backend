@@ -24,6 +24,9 @@ class MedicineService {
 
             let finalMedicineList: any = [];
 
+            // make an arraylist of string and store the medicine name
+            const medicineList: any = [];
+
             try {
                 finalMedicineList = arrayList.map(async (element: any) => {
                     console.log(baseURL + element);
@@ -94,11 +97,18 @@ class MedicineService {
                         const medicine = await medicinePromise;
                         console.log("Medicine is : ", medicine);
                         console.log(typeof medicine);
+
+                        medicineList.push(medicine);
                     }
 
-                    return [];
-
                 });
+
+                console.log("Final Medicine List is : ");
+                console.log(finalMedicineList);
+
+                console.log("Medicine List is : ");
+                console.log(medicineList);
+
             } catch (error) {
                 console.error(error);
                 throw error;
