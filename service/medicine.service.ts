@@ -21,8 +21,8 @@ class MedicineService {
 
             // now remove the last element of the array
             arrayList.pop();
-            
-            let finalMedicineList: any[] | PromiseLike<any[]> = [];
+
+            let finalMedicineList: any = [];
 
             try {
                 finalMedicineList = arrayList.map(async (element: any) => {
@@ -48,9 +48,9 @@ class MedicineService {
                     }).get();
 
                     console.log("Medicine List is : ");
-                    console.log(medicineList);
+                    console.log(medicineList.toString());
 
-                    finalMedicineList = (Array.isArray(finalMedicineList) ? finalMedicineList : await finalMedicineList).concat(medicineList);
+                    finalMedicineList = finalMedicineList.concat(medicineList);
 
                     return finalMedicineList;
                 });
