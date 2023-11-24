@@ -23,7 +23,8 @@ class MedicineService {
             arrayList.pop();
 
             try {
-                const finalMedicineList: any[] = await Promise.all(arrayList.map(async (element: any) => {
+                let finalMedicineList: any[] | PromiseLike<any[]> = [];
+                finalMedicineList = await Promise.all(arrayList.map(async (element: any) => {
                     console.log(baseURL + element);
                     const response = await axios.get(baseURL + element);
                     const $ = cheerio.load(response.data);
@@ -48,7 +49,7 @@ class MedicineService {
                     console.log("Medicine List is : ");
                     console.log(medicineList);
 
-                    finalMedicineList.push(medicineList);
+                    finalMedicineList = (Array.isArray(finalMedicineList) ? finalMedicineList : await finalMedicineList).concat(medicineList);
     
                     return finalMedicineList;
                 }));
