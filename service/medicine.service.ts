@@ -51,13 +51,14 @@ class MedicineService {
                     console.log(medicineList);
 
                     finalMedicineList = finalMedicineList.concat(medicineList);
-
-                    return finalMedicineList;
+                    
                 });
             } catch (error) {
                 console.error(error);
                 throw error;
             }
+
+            return finalMedicineList;
 
         } catch (error) {
             console.error(error);
