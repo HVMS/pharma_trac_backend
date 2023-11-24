@@ -48,7 +48,7 @@ class MedicineService {
                     }).get();
 
                     console.log("Medicine List is : ");
-                    console.log(medicineList.toString());
+                    console.log(medicineList);
 
                     finalMedicineList = finalMedicineList.concat(medicineList);
 
