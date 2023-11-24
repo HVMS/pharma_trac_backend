@@ -12,7 +12,7 @@ getMedicineInformationRouter.get('/', async (req: Request, res: Response) => {
     console.log("Request body is : ", req.body);
 
     try {
-        const medicineList = await medicineService.getMedicineInfo();
+        const medicineList: any = await medicineService.getMedicineInfo();
         
         if (!medicineList) {
             res.json({

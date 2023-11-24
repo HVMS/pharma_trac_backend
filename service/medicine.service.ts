@@ -22,35 +22,40 @@ class MedicineService {
             // now remove the last element of the array
             arrayList.pop();
 
-            const finalMedicineList = await Promise.all(arrayList.map(async (element: any) => {
-                console.log(baseURL + element);
-                const response = await axios.get(baseURL + element);
-                const $ = cheerio.load(response.data);
-
-                const medicineList = $('.ddc-list-column-2').find('li').map(async (i: any, element: any) => {
-                    const medicine = $(element).find('a').attr('href');
-                    if (medicine !== undefined) {
-                        if (medicine.includes('/mtm/')) {
-                            return medicine.split('/')[2].split('.')[0];
-                        } else if (medicine.includes('/pro/')) {
-                            return medicine.split('/')[2].split('.')[0];
-                        } else if (medicine.includes('/npc/')) {
-                            return medicine.split('/')[2].split('.')[0];
-                        } else if (medicine.includes('/cons/')) {
-                            return medicine.split('/')[2].split('.')[0];
-                        } else {
-                            return medicine.split('/')[1].split('.')[0];
+            try {
+                const finalMedicineList: any[] = await Promise.all(arrayList.map(async (element: any) => {
+                    console.log(baseURL + element);
+                    const response = await axios.get(baseURL + element);
+                    const $ = cheerio.load(response.data);
+    
+                    const medicineList = $('.ddc-list-column-2').find('li').map(async (i: any, element: any) => {
+                        const medicine = $(element).find('a').attr('href');
+                        if (medicine !== undefined) {
+                            if (medicine.includes('/mtm/')) {
+                                return medicine.split('/')[2].split('.')[0];
+                            } else if (medicine.includes('/pro/')) {
+                                return medicine.split('/')[2].split('.')[0];
+                            } else if (medicine.includes('/npc/')) {
+                                return medicine.split('/')[2].split('.')[0];
+                            } else if (medicine.includes('/cons/')) {
+                                return medicine.split('/')[2].split('.')[0];
+                            } else {
+                                return medicine.split('/')[1].split('.')[0];
+                            }
                         }
-                    }
-                }).get();
+                    }).get();
+    
+                    console.log("Medicine List is : ");
+                    console.log(medicineList);
 
-                console.log("Medicine List is : ");
-                console.log(medicineList);
-
-                return medicineList;
-            }));
-
-            return finalMedicineList.flat();
+                    finalMedicineList.push(medicineList);
+    
+                    return finalMedicineList;
+                }));
+            } catch (error) {
+                console.error(error);
+                throw error;
+            }
 
         } catch (error) {
             console.error(error);
