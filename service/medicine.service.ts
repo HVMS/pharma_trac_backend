@@ -70,10 +70,7 @@ class MedicineService {
 
                     // console.log("Medicine List is : ");
                     // console.log(medicineList);
-
-                    // finalMedicineList = finalMedicineList.concat(medicineList);
-
-                    let finalMedicineList: any[] = [];
+                    
                     const elements = $('.ddc-list-column-2').find('li').toArray();
 
                     for (const element of elements) {
