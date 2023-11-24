@@ -73,7 +73,7 @@ class MedicineService {
 
                     // finalMedicineList = finalMedicineList.concat(medicineList);
 
-                    let finalMedicineList = [];
+                    let finalMedicineList: any[] = [];
                     const elements = $('.ddc-list-column-2').find('li').toArray();
 
                     for (const element of elements) {
@@ -97,7 +97,7 @@ class MedicineService {
                         const medicine = await medicinePromise;
                         console.log("Medicine is : ");
                         console.log(medicine);
-                        finalMedicineList.push(medicine);
+                        finalMedicineList.concat(medicine);
                     }
 
                     console.log("Final Medicine List is : ");
