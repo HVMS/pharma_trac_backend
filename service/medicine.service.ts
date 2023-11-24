@@ -93,6 +93,7 @@ class MedicineService {
 
                         const medicine = await medicinePromise;
                         console.log("Medicine is : ", medicine);
+                        console.log(typeof medicine);
                     }
 
                     return [];
