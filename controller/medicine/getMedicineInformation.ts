@@ -23,6 +23,7 @@ getMedicineInformationRouter.get('/', async (req: Request, res: Response) => {
             res.json({
                 "statusCode": 200,
                 "message": "Medicine found successfully.",
+                "data": medicineList,
             });
         }
 
