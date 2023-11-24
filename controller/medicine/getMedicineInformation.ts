@@ -15,18 +15,17 @@ getMedicineInformationRouter.get('/', async (req: Request, res: Response) => {
         const medicineList: any = await medicineService.getMedicineInfo();
         
         if (!medicineList || medicineList.length === 0) {
-            res.json({
+            return res.json({
                 "message": "No medicine found"
             });
-        }else{
-            res.json({
+        } else {
+            return res.json({
                 "data": medicineList,
             });
         }
-
-        res.json(medicineList);
     } catch (error: any) {
-        res.json({
+        console.log(error);
+        return res.json({
             "data": "error occured",
         });
     }
