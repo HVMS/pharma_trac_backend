@@ -44,6 +44,9 @@ class MedicineService {
                     }
                 }).get();
 
+                console.log("Medicine List is : ");
+                console.log(medicineList);
+
                 return medicineList;
             }));
 
