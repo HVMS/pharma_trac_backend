@@ -33,47 +33,6 @@ class MedicineService {
                     const response = await axios.get(baseURL + element);
                     const $ = cheerio.load(response.data);
 
-                    // const medicineList = $('.ddc-list-column-2').find('li').map(async (i: any, element: any) => {
-                    //     const medicine = $(element).find('a').attr('href');
-                    //     if (medicine !== undefined) {
-                    //         if (medicine.includes('/mtm/')) {
-                    //             return medicine.split('/')[2].split('.')[0];
-                    //         } else if (medicine.includes('/pro/')) {
-                    //             return medicine.split('/')[2].split('.')[0];
-                    //         } else if (medicine.includes('/npc/')) {
-                    //             return medicine.split('/')[2].split('.')[0];
-                    //         } else if (medicine.includes('/cons/')) {
-                    //             return medicine.split('/')[2].split('.')[0];
-                    //         } else {
-                    //             return medicine.split('/')[1].split('.')[0];
-                    //         }
-                    //     }
-                    // }).get();
-
-                    // const medicinePromises = $('.ddc-list-column-2').find('li').map((i: any, element: any) => {
-                    //     return new Promise((resolve) => {
-                    //         const medicine = $(element).find('a').attr('href');
-                    //         if (medicine !== undefined) {
-                    //             if (medicine.includes('/mtm/')) {
-                    //                 resolve(medicine.split('/')[2].split('.')[0]);
-                    //             } else if (medicine.includes('/pro/')) {
-                    //                 resolve(medicine.split('/')[2].split('.')[0]);
-                    //             } else if (medicine.includes('/npc/')) {
-                    //                 resolve(medicine.split('/')[2].split('.')[0]);
-                    //             } else if (medicine.includes('/cons/')) {
-                    //                 resolve(medicine.split('/')[2].split('.')[0]);
-                    //             } else {
-                    //                 resolve(medicine.split('/')[1].split('.')[0]);
-                    //             }
-                    //         }
-                    //     });
-                    // }).get();
-
-                    // const medicineList = await Promise.all(medicinePromises);
-
-                    // console.log("Medicine List is : ");
-                    // console.log(medicineList);
-
                     const elements = $('.ddc-list-column-2').find('li').toArray();
 
                     for (const element of elements) {
@@ -92,19 +51,15 @@ class MedicineService {
                                     resolve(medicine.split('/')[1].split('.')[0]);
                                 }
                             }
+                        }).then((medicine) => {
+                            console.log("Medicine is : ", medicine);
+                            console.log(typeof medicine);
+
+                            medicineList.push(medicine);
                         });
-
-                        const medicine = await medicinePromise;
-                        console.log("Medicine is : ", medicine);
-                        console.log(typeof medicine);
-
-                        medicineList.push(medicine);
                     }
 
                 });
-
-                console.log("Final Medicine List is : ");
-                console.log(finalMedicineList);
 
                 console.log("Medicine List is : ");
                 console.log(medicineList);
