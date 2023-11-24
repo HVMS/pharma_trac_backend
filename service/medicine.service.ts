@@ -70,7 +70,7 @@ class MedicineService {
 
                     // console.log("Medicine List is : ");
                     // console.log(medicineList);
-                    
+
                     const elements = $('.ddc-list-column-2').find('li').toArray();
 
                     for (const element of elements) {
@@ -94,13 +94,9 @@ class MedicineService {
                         const medicine = await medicinePromise;
                         console.log("Medicine is : ");
                         console.log(medicine);
-                        finalMedicineList.concat(medicine);
                     }
 
-                    console.log("Final Medicine List is : ");
-                    console.log(finalMedicineList);
-
-                    return finalMedicineList;
+                    return [];
 
                 });
             } catch (error) {
