@@ -21,14 +21,15 @@ class MedicineService {
 
             // now remove the last element of the array
             arrayList.pop();
+            
+            let finalMedicineList: any[] | PromiseLike<any[]> = [];
 
             try {
-                let finalMedicineList: any[] | PromiseLike<any[]> = [];
-                finalMedicineList = await Promise.all(arrayList.map(async (element: any) => {
+                finalMedicineList = arrayList.map(async (element: any) => {
                     console.log(baseURL + element);
                     const response = await axios.get(baseURL + element);
                     const $ = cheerio.load(response.data);
-    
+
                     const medicineList = $('.ddc-list-column-2').find('li').map(async (i: any, element: any) => {
                         const medicine = $(element).find('a').attr('href');
                         if (medicine !== undefined) {
@@ -45,14 +46,14 @@ class MedicineService {
                             }
                         }
                     }).get();
-    
+
                     console.log("Medicine List is : ");
                     console.log(medicineList);
 
                     finalMedicineList = (Array.isArray(finalMedicineList) ? finalMedicineList : await finalMedicineList).concat(medicineList);
-    
+
                     return finalMedicineList;
-                }));
+                });
             } catch (error) {
                 console.error(error);
                 throw error;
