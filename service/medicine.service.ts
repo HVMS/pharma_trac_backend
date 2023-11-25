@@ -52,20 +52,15 @@ class MedicineService {
                                 }
                             }
                         }).then((medicine) => {
-                            console.log("Medicine is : ", medicine);
-                            console.log(typeof medicine);
-
                             medicineList.push(medicine);
-                            console.log("Medicine List is : ", medicineList);
                         }).then(() => {
-                            console.log("Medicine List is : ", medicineList);
+                            console.log("Medicine is : ", medicineList);
                         });
                     }
 
                 });
 
                 await Promise.all(finalMedicineList);
-                console.log("Medicine List is : ", medicineList, medicineList.length);
 
             } catch (error) {
                 console.error(error);
