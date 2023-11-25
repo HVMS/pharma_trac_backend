@@ -56,13 +56,16 @@ class MedicineService {
                             console.log(typeof medicine);
 
                             medicineList.push(medicine);
-                            console.log("Medicine List is : ", medicineList);
+                            // console.log("Medicine List is : ", medicineList);
                         }).then(() => {
-                            console.log("Medicine List is : ", medicineList);
+                            // console.log("Medicine List is : ", medicineList);
                         });
                     }
 
                 });
+
+                await Promise.all(finalMedicineList);
+                console.log("Medicine List is : ", medicineList, medicineList.length);
 
             } catch (error) {
                 console.error(error);
