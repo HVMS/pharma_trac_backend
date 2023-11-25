@@ -56,13 +56,13 @@ class MedicineService {
                             console.log(typeof medicine);
 
                             medicineList.push(medicine);
+                            console.log("Medicine List is : ", medicineList);
+                        }).then(() => {
+                            console.log("Medicine List is : ", medicineList);
                         });
                     }
 
                 });
-
-                console.log("Medicine List is : ");
-                console.log(medicineList);
 
             } catch (error) {
                 console.error(error);
