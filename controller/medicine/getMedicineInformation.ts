@@ -16,16 +16,19 @@ getMedicineInformationRouter.get('/', async (req: Request, res: Response) => {
         
         if (!medicineList || medicineList.length === 0) {
             return res.json({
+                "statusCode": "404",
                 "message": "No medicine found"
             });
         } else {
             return res.json({
+                "statusCode": "200",
                 "data": medicineList,
             });
         }
     } catch (error: any) {
         console.log(error);
         return res.json({
+            "statusCode": "500",
             "data": "error occured",
         });
     }

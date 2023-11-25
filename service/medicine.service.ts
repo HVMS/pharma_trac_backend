@@ -56,9 +56,9 @@ class MedicineService {
                             console.log(typeof medicine);
 
                             medicineList.push(medicine);
-                            // console.log("Medicine List is : ", medicineList);
+                            console.log("Medicine List is : ", medicineList);
                         }).then(() => {
-                            // console.log("Medicine List is : ", medicineList);
+                            console.log("Medicine List is : ", medicineList);
                         });
                     }
 
@@ -72,7 +72,7 @@ class MedicineService {
                 throw error;
             }
 
-            return [];
+            return medicineList;
 
         } catch (error) {
             console.error(error);
