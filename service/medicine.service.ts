@@ -18,8 +18,9 @@ class MedicineService {
             const flattenMedicineTypesList = medicineTypesList.flat();
             console.log("Flatten medicine types list is : ", flattenMedicineTypesList);
 
-            // Now check whether the medicine is in the list or not using regex
-            const found1 = flattenMedicineTypesList.regex("/"+medicine).length > 0;
+            const regex = new RegExp(medicine, 'i');
+
+            const found1 = flattenMedicineTypesList.some((el: any) => regex.test(el));
             console.log("Found1 is : ", found1);
 
             const found = flattenMedicineTypesList.includes("/"+medicine);
