@@ -42,6 +42,7 @@ app.use('/getSideEffect', getMedicineSideEffectRouter);
 // Vital Sign Adding Feature
 app.use('/getTypesOfMedicine', getMedicineTypesRouter);
 app.use('/getMedicineInfo', getMedicineInformationRouter);
+app.use('/getMedicineSideEffect', getMedicineSideEffectRouter);
 
 app.use('/addVitalSign', addVitalSignRouter);
 app.use('/getBloodPressure', getBloodPressureRouter);
