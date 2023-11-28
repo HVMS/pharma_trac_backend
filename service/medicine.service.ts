@@ -42,6 +42,10 @@ class MedicineService {
                         });
 
                         console.log("Side effect paragraph is : ", sideEffectParagraph);
+
+                        let sideEffectsText = sideEffectParagraph.next().text();
+                        console.log("Side effects text is : ", sideEffectsText);
+
                     } catch (error) {
                         console.error(error);
                         throw error;
