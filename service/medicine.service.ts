@@ -7,7 +7,7 @@ const drug_information_url = baseURL + "/drug_information.html";
 
 class MedicineService {
 
-    async getSideEffectsByMedicine(medicine: string) {
+    async getSideEffectsByMedicine(medicine_name: string) {
         try {
             
             // Now call the getMedicineTypes() function to get the medicine types
@@ -18,16 +18,20 @@ class MedicineService {
             const flattenMedicineTypesList = medicineTypesList.flat();
             console.log("Flatten medicine types list is : ", flattenMedicineTypesList);
 
-            const regex = new RegExp(medicine, 'i');
+            const regex = new RegExp(medicine_name, 'i');
 
-            const item = flattenMedicineTypesList.find((element: any) => {
+            const medicine = flattenMedicineTypesList.find((element: any) => {
                 return regex.test(element);
             });
             
-            if (item.length > 0 || item !== undefined) {
+            if (medicine.length > 0 || medicine !== undefined) {
                 console.log("Found");
-                console.log("Medicine is : ", medicine);
-                console.log("Medicine element is : ", item);
+                console.log("Medicine name is : ", medicine_name);
+                console.log("Medicine element is : ", medicine);
+
+                // Now will call the function which will return the side effects of this particular medicine into the json format
+                const medicineSideEffectsList = this.prepareSideEffectsList(medicine);
+
                 return true;
             } else {
                 console.log("Not found");
@@ -39,6 +43,35 @@ class MedicineService {
             throw error;
         }
     }
+
+    async prepareSideEffectsList(medicine: string) {
+        try {
+
+            const url = baseURL + medicine + ".html";
+            const response = axios.get(url);
+            const $ = cheerio.load((await response).data);
+
+            const sideEffectParagraph = $("p").filter(() => {
+                return /common.*side effects.*may include:/i.test($(this).text());
+            });
+
+            let sideEffectsList = this.getCorrectTextData(sideEffectParagraph).split(/,|;/).map((effect: string) => effect.trim());
+            console.log("Side effects list is : ", sideEffectsList);
+
+        } catch (error) {
+            console.error(error);
+            throw error;
+        }
+    }
+
+    getCorrectTextData(sideEffectsParagraph: any){
+        let sideEffectsText = sideEffectsParagraph.next().text();
+        let lines = sideEffectsText.split('\n');
+        lines = lines.filter((line: string) => line.split(' ').length < 4 || !/ or | such as | something /i.test(line));
+        sideEffectsText = lines.join('\n');
+        return sideEffectsText;
+    }
+
 
     async getMedicineTypes() {
         try{

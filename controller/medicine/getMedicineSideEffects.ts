@@ -10,22 +10,22 @@ getMedicineSideEffectRouter.get('/', async (req: Request, res: Response) => {
 
     console.log("Request body is : ",req.body);
 
-    const medicine = req.query.medicine_name as string;
-    console.log("medicine name is : ", medicine);
+    const medicine_name = req.query.medicine_name as string;
+    console.log("medicine name is : ", medicine_name);
 
     try {
-        const medicineSideEffectsList: any = await medicineService.getSideEffectsByMedicine(medicine);
+        const medicineSideEffectsList: any = await medicineService.getSideEffectsByMedicine(medicine_name);
         
         if (!medicineSideEffectsList || medicineSideEffectsList.length === 0) {
             return res.json({
                 "statusCode": "404",
-                "medicine_name": medicine,
+                "medicine_name": medicine_name,
                 "message": "No side effects found"
             });
         } else {
             return res.json({
                 "statusCode": "200",
-                "medicine_name": medicine,
+                "medicine_name": medicine_name,
                 "data": medicineSideEffectsList,
             });
         }
