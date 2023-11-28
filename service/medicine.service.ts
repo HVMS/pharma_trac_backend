@@ -29,9 +29,29 @@ class MedicineService {
                 console.log("Medicine name is : ", medicine_name);
                 console.log("Medicine element is : ", medicine);
 
+                let medicineSideEffectsList: any = [];
+
+                medicineSideEffectsList = new Promise(async (resolve) => {
+                    const url = baseURL + medicine + ".html";
+                    const response = await axios.get(url);
+                    const $ = cheerio.load(response.data);
+
+                    try {
+                        const sideEffectParagraph = $("p").filter(() => {
+                            return /common.*side effects.*may include:/i.test($(this).text());
+                        });
+
+                        console.log("Side effect paragraph is : ", sideEffectParagraph);
+                    } catch (error) {
+                        console.error(error);
+                        throw error;
+                    }
+
+                });
+
                 // Now will call the function which will return the side effects of this particular medicine into the json format
-                const medicineSideEffectsList = this.prepareSideEffectsList(medicine);
-                console.log("Medicine side effects list is : ", medicineSideEffectsList);
+                // const medicineSideEffectsList = this.prepareSideEffectsList(medicine);
+                // console.log("Medicine side effects list is : ", medicineSideEffectsList);
 
                 return true;
             } else {
