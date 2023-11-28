@@ -31,6 +31,7 @@ class MedicineService {
 
                 // Now will call the function which will return the side effects of this particular medicine into the json format
                 const medicineSideEffectsList = this.prepareSideEffectsList(medicine);
+                console.log("Medicine side effects list is : ", medicineSideEffectsList);
 
                 return true;
             } else {
@@ -55,8 +56,10 @@ class MedicineService {
                 return /common.*side effects.*may include:/i.test($(this).text());
             });
 
-            let sideEffectsList = this.getCorrectTextData(sideEffectParagraph).split(/,|;/).map((effect: string) => effect.trim());
-            console.log("Side effects list is : ", sideEffectsList);
+            console.log("Side effect paragraph is : ", sideEffectParagraph);
+
+            // let sideEffectsList = this.getCorrectTextData(sideEffectParagraph).split(/,|;/).map((effect: string) => effect.trim());
+            // console.log("Side effects list is : ", sideEffectsList);
 
         } catch (error) {
             console.error(error);
