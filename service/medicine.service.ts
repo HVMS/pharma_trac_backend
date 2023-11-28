@@ -14,6 +14,9 @@ class MedicineService {
             // Then check whether the medicine is in the list or not - if not then return false else true
             const medicineTypesList = await this.getMedicineTypes();
             console.log("Medicine Types List is : ", medicineTypesList);
+
+            // Now medicine types list is an list of list of string - so we need to flatten it
+            const flattenMedicineTypesList = medicineTypesList.flat();
             
             if (medicineTypesList.includes(medicine)) {
                 console.log("Found");
