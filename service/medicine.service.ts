@@ -48,7 +48,8 @@ class MedicineService {
 
                         let lines = sideEffectsText.split(' ');
                         lines = lines.filter((line: string) => line.split(' ').length < 4 || !/ or | such as | something /i.test(line));
-                        let sideEffectsList = sideEffectsText.split(/,|;/).map(effect => effect.trim());
+                        sideEffectsText.split(/,|;/);
+                        let sideEffectsList = sideEffectsText.split('\n').map(effect => effect.trim());
                         console.log("Side effects text is : ", sideEffectsList);  
                         
                         if (sideEffectsList.includes('or')){
