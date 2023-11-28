@@ -46,7 +46,7 @@ class MedicineService {
                         let sideEffectsText = sideEffectParagraph.next().text();
                         console.log("Side effects text is : ", sideEffectsText);
 
-                        let lines = sideEffectsText.split('\n');
+                        let lines = sideEffectsText.split(' ');
                         lines = lines.filter((line: string) => line.split(' ').length < 4 || !/ or | such as | something /i.test(line));
                         let sideEffectsList = sideEffectsText.split(/,|;/).map(effect => effect.trim());
                         console.log("Side effects text is : ", sideEffectsList);  
