@@ -46,6 +46,9 @@ class MedicineService {
                         let sideEffectsText = sideEffectParagraph.next().text();
                         console.log("Side effects text is : ", sideEffectsText);
 
+                        // Remove the empty lines from the side effects text
+                        sideEffectsText = sideEffectsText.replace(/^\s*[\r\n]/gm, '');
+
                         let lines = sideEffectsText.split(';');
                         console.log("Lines are : ", lines);
                         lines = lines.filter((line: string) => line.split(' ').length < 4 || !/ or | such as | something /i.test(line));
@@ -53,7 +56,7 @@ class MedicineService {
                         sideEffectsText.split(/,|;/);
                         console.log("sideEffectsText is : ", sideEffectsText);
                         let sideEffectsList = sideEffectsText.split('\n').map(effect => effect.trim());
-                        console.log("Side effects text is : ", sideEffectsList);  
+                        console.log("Side effects list is : ", sideEffectsList);  
                         
                         if (sideEffectsList.includes('or')){
                             sideEffectsList.pop();
