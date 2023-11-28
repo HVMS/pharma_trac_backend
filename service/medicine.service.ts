@@ -20,14 +20,14 @@ class MedicineService {
 
             const regex = new RegExp(medicine, 'i');
 
-            const found1 = flattenMedicineTypesList.some((el: any) => regex.test(el));
-            console.log("Found1 is : ", found1);
-
-            const found = flattenMedicineTypesList.includes("/"+medicine);
-            console.log("Found is : ", found);
+            const item = flattenMedicineTypesList.find((element: any) => {
+                return regex.test(element);
+            });
             
-            if (flattenMedicineTypesList.includes(medicine)) {
+            if (item.length > 0 || item !== undefined) {
                 console.log("Found");
+                console.log("Medicine is : ", medicine);
+                console.log("Medicine element is : ", item);
                 return true;
             } else {
                 console.log("Not found");
