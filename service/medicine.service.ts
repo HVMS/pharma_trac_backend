@@ -37,8 +37,8 @@ class MedicineService {
                     const $ = cheerio.load(response.data);
 
                     try {
-                        const sideEffectParagraph = $("p").filter(() => {
-                            return /common.*side effects.*may include:/i.test($(this).text());
+                        const sideEffectParagraph = $("p").filter((index, element) => {
+                            return /common.*side effects.*may include:/i.test($(element).text());
                         });
 
                         console.log("Side effect paragraph is : ", sideEffectParagraph);
