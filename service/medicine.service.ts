@@ -49,8 +49,8 @@ class MedicineService {
                 return medicineList;
     
             }));
-    
-            console.log(medicineTypesList);
+            
+            return medicineTypesList;
 
         } catch (error) {
             console.error(error);
