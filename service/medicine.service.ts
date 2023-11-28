@@ -6,6 +6,58 @@ const baseURL = "https://www.drugs.com";
 const drug_information_url = baseURL + "/drug_information.html";
 
 class MedicineService {
+
+    async getMedicineTypes() {
+        try{
+
+            const response = await axios.get(drug_information_url);
+            const $ = cheerio.load(response.data);
+
+            const ulList = $('#content > div > nav > ul');
+
+            const arrayList = ulList.find('li').map((i: any, element: any) => {
+                const href = $(element).find('a').attr('href');
+                return href;
+            }).get();
+
+            arrayList.pop();
+
+            let medicineTypesList: any = [];
+
+            medicineTypesList = await Promise.all(arrayList.map(async (element) => {
+                console.log(baseURL + element);
+                const response = await axios.get(baseURL + element);
+                const $ = cheerio.load(response.data);
+    
+                const medicineList = $('#content > div.contentBox > ul').find('li').map((i, element) => {
+                    const medicine = $(element).find('a').attr('href');
+                    if (medicine != undefined) {
+                        if (medicine.includes('/mtm/')) {
+                            return medicine.split('.')[0];
+                        } else if (medicine.includes('/pro/')) {
+                            return medicine.split('.')[0];
+                        } else if (medicine.includes('/npc/')) {
+                            return medicine.split('.')[0];
+                        } else if (medicine.includes('/cons/')) {
+                            return medicine.split('.')[0];
+                        } else {
+                            return medicine.split('.')[0];
+                        }
+                    }
+                }).get();
+    
+                return medicineList;
+    
+            }));
+    
+            console.log(medicineTypesList);
+
+        } catch (error) {
+            console.error(error);
+            throw error;
+        }
+    }
+
     async getMedicineInfo(){
         try {
             const response = await axios.get(drug_information_url);

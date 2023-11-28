@@ -13,6 +13,7 @@ import { getBloodPressureRouter } from "./controller/vitals/getBloodPressure";
 import { loginRouter } from "./controller/users/login";
 import { changePasswordRouter } from "./controller/users/changePassword";
 import { getMedicineInformationRouter } from "./controller/medicine/getMedicineInformation";
+import { getMedicineTypesRouter } from "./controller/medicine/getMedicineTypes";
 
 //For env File 
 dotenv.config();
@@ -35,6 +36,9 @@ app.use('/login', loginRouter);
 app.use('/user', userById);
 app.use('/updateUser', updateUserRouter);
 app.use('/changePassword', changePasswordRouter);
+
+// Vital Sign Adding Feature
+app.use('/getTypesOfMedicine', getMedicineTypesRouter);
 app.use('/getMedicineInfo', getMedicineInformationRouter);
 
 app.use('/addVitalSign', addVitalSignRouter);
