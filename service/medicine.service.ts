@@ -46,7 +46,8 @@ class MedicineService {
                         let sideEffectsText = sideEffectParagraph.next().text();
                         console.log("Side effects text is : ", sideEffectsText);
 
-                        let sideEffectsList = sideEffectsText.split('\n').map(effect => effect.trim().replace(/or|;|,|\./g, ''));
+                        let sideEffectsList = sideEffectsText.split(/,|;/).map(effect => effect.trim().split(' ')).flat();
+                        sideEffectsList = sideEffectsList.filter(word => !["or", "such as", "normal"].includes(word));
 
                         // let lines = sideEffectsText.split(' ');
                         // lines = lines.filter((line: string) => line.split(' ').length < 4 || !/ or | such as | something /i.test(line));
