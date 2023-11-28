@@ -18,7 +18,7 @@ class MedicineService {
             const flattenMedicineTypesList = medicineTypesList.flat();
             console.log("Flatten medicine types list is : ", flattenMedicineTypesList);
 
-            const found = flattenMedicineTypesList.includes(medicine);
+            const found = flattenMedicineTypesList.includes("/"+medicine);
             console.log("Found is : ", found);
             
             if (flattenMedicineTypesList.includes(medicine)) {
