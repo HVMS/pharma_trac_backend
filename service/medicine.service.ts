@@ -13,11 +13,13 @@ class MedicineService {
             // Now call the getMedicineTypes() function to get the medicine types
             // Then check whether the medicine is in the list or not - if not then return false else true
             const medicineTypesList = await this.getMedicineTypes();
-            console.log("Medicine types list is : ", medicineTypesList);
+            console.log("Medicine Types List is : ", medicineTypesList);
             
             if (medicineTypesList.includes(medicine)) {
+                console.log("Found");
                 return true;
             } else {
+                console.log("Not found");
                 return false;
             }
 
@@ -65,8 +67,6 @@ class MedicineService {
                         }
                     }
                 }).get();
-    
-                return medicineList;
     
             }));
 
