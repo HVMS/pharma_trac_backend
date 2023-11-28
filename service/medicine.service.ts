@@ -7,6 +7,26 @@ const drug_information_url = baseURL + "/drug_information.html";
 
 class MedicineService {
 
+    async getSideEffectsByMedicine(medicine: string) {
+        try {
+            
+            // Now call the getMedicineTypes() function to get the medicine types
+            // Then check whether the medicine is in the list or not - if not then return false else true
+            const medicineTypesList = await this.getMedicineTypes();
+            console.log("Medicine types list is : ", medicineTypesList);
+            
+            if (medicineTypesList.includes(medicine)) {
+                return true;
+            } else {
+                return false;
+            }
+
+        } catch (error) {
+            console.error(error);
+            throw error;
+        }
+    }
+
     async getMedicineTypes() {
         try{
 
@@ -49,7 +69,7 @@ class MedicineService {
                 return medicineList;
     
             }));
-            
+
             return medicineTypesList;
 
         } catch (error) {
