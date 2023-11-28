@@ -67,6 +67,8 @@ class MedicineService {
                         }
                     }
                 }).get();
+
+                return medicineList;
     
             }));
 
