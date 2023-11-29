@@ -9,6 +9,8 @@ class MedicineService {
 
     async getSideEffectsByMedicine(medicine_name: string) {
         try {
+
+            let drugInfoJson: any = {};
             
             // Now call the getMedicineTypes() function to get the medicine types
             // Then check whether the medicine is in the list or not - if not then return false else true
@@ -59,40 +61,31 @@ class MedicineService {
                         let sideEffectsList = sideEffectsText.split(';').map(effect => effect.trim());
                         console.log("Side effects list is : ", sideEffectsList);
                         
-                        sideEffectsList = sideEffectsList.filter(effect => !/\b(or|such as|normal)\b/i.test(effect));;
+                        sideEffectsList = sideEffectsList.filter(effect => !/\b(or|where|was|such as|normal)\b/i.test(effect));;
                         
                         // Create a separate list that stores comma-separated elements
-                        let separateList = sideEffectsList.flatMap(effect => effect.split(',').map(item => item.trim()));
+                        let finalSideEffectsList = sideEffectsList.flatMap(effect => effect.split(',').map(item => item.trim()));
 
                         // Remove elements that are "" or "\n"
-                        separateList = separateList.filter(item => item !== "" && item !== "\n");
+                        finalSideEffectsList = finalSideEffectsList.filter(item => item !== "" && item !== "\n");
 
-                        console.log("Separate list is : ", separateList);
-
-                        console.log("sideEffectsList is: ");
-                        console.log(sideEffectsList);
+                        console.log("Separate list is : ", finalSideEffectsList);
 
                         let drugInfo = {
                             drug_name: medicine_name,
-                            side_effects: sideEffectsList
+                            side_effects: finalSideEffectsList
                         };
 
-                        let drugInfoJson = JSON.stringify(drugInfo);
-                        console.log("drugInfoJson is: ");
-                        console.log(drugInfoJson);
+                        drugInfoJson = JSON.stringify(drugInfo);
 
                     } catch (error) {
                         console.error(error);
                         throw error;
                     }
 
+                    return drugInfoJson;
+
                 });
-
-                // Now will call the function which will return the side effects of this particular medicine into the json format
-                // const medicineSideEffectsList = this.prepareSideEffectsList(medicine);
-                // console.log("Medicine side effects list is : ", medicineSideEffectsList);
-
-                return true;
             } else {
                 console.log("Not found");
                 return false;
