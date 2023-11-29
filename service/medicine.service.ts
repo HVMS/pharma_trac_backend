@@ -72,6 +72,8 @@ class MedicineService {
                         };
 
                         drugInfoJson = JSON.stringify(drugInfo);
+                        
+                        resolve(drugInfoJson);
 
                     } catch (error) {
                         console.error(error);
