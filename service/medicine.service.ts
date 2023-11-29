@@ -27,13 +27,8 @@ class MedicineService {
             });
             
             if (medicine.length > 0 || medicine !== undefined) {
-                console.log("Found");
-                console.log("Medicine name is : ", medicine_name);
-                console.log("Medicine element is : ", medicine);
 
-                let medicineSideEffectsList: any = [];
-
-                medicineSideEffectsList = new Promise(async (resolve) => {
+                await new Promise(async (resolve) => {
                     const url = baseURL + medicine + ".html";
                     const response = await axios.get(url);
                     const $ = cheerio.load(response.data);
@@ -83,56 +78,20 @@ class MedicineService {
                         throw error;
                     }
 
-                }).then(() => {
-                    console.log("Drug info is : ", drugInfoJson);
-                    return drugInfoJson;
                 });
             } else {
                 console.log("Not found");
                 return drugInfoJson;
             }
 
-        } catch (error) {
-            console.error(error);
-            throw error;
-        }
-    }
-
-    async prepareSideEffectsList(medicine: string) {
-        try {
-
-            const url = baseURL + medicine + ".html";
-            const response = axios.get(url);
-            const $ = cheerio.load((await response).data);
-
-            const sideEffectParagraph = $("p").filter(() => {
-                return /common.*side effects.*may include:/i.test($(this).text());
-            });
-
-            console.log("Side effect paragraph is : ", sideEffectParagraph);
-
-            // let sideEffectsList = this.getCorrectTextData(sideEffectParagraph).split(/,|;/).map((effect: string) => effect.trim());
-            // console.log("Side effects list is : ", sideEffectsList);
+            console.log("Drug info json is : ", drugInfoJson);
+            return drugInfoJson;
 
         } catch (error) {
             console.error(error);
             throw error;
         }
     }
-
-    getCorrectTextData(sideEffectsParagraph: any){
-        try {
-            let sideEffectsText = sideEffectsParagraph.next().text();
-            let lines = sideEffectsText.split('\n');
-            lines = lines.filter((line: string) => line.split(' ').length < 4 || !/ or | such as | something /i.test(line));
-            sideEffectsText = lines.join('\n');
-            return sideEffectsText;
-        } catch (error) {
-            console.error(error);
-            throw error;
-        }
-    }
-
 
     async getMedicineTypes() {
         try{
