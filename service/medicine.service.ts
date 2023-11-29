@@ -86,7 +86,7 @@ class MedicineService {
                 });
             } else {
                 console.log("Not found");
-                return false;
+                return drugInfoJson;
             }
 
             return drugInfoJson;

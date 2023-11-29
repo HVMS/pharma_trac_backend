@@ -16,7 +16,7 @@ getMedicineSideEffectRouter.get('/', async (req: Request, res: Response) => {
     try {
         const medicineSideEffectsList: any = await medicineService.getSideEffectsByMedicine(medicine_name);
         
-        if (!medicineSideEffectsList || medicineSideEffectsList == undefined) {
+        if (!medicineSideEffectsList) {
             return res.json({
                 "statusCode": "404",
                 "medicine_name": medicine_name,
