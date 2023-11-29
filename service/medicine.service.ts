@@ -71,7 +71,7 @@ class MedicineService {
                             side_effects: finalSideEffectsList
                         };
                         
-                        resolve(drugInfoJson);
+                        resolve(drugInfo);
 
                     } catch (error) {
                         console.error(error);
