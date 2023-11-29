@@ -67,7 +67,6 @@ class MedicineService {
                         console.log("Separate list is : ", finalSideEffectsList);
 
                         let drugInfo = {
-                            drug_name: medicine_name,
                             side_effects: finalSideEffectsList
                         };
 
