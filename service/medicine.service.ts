@@ -83,13 +83,13 @@ class MedicineService {
                         throw error;
                     }
 
-                    return drugInfoJson;
-
                 });
             } else {
                 console.log("Not found");
                 return false;
             }
+
+            return drugInfoJson;
 
         } catch (error) {
             console.error(error);
