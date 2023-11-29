@@ -83,13 +83,14 @@ class MedicineService {
                         throw error;
                     }
 
+                }).then(() => {
+                    console.log("Drug info is : ", drugInfoJson);
+                    return drugInfoJson;
                 });
             } else {
                 console.log("Not found");
                 return drugInfoJson;
             }
-
-            return drugInfoJson;
 
         } catch (error) {
             console.error(error);
