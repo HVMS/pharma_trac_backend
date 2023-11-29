@@ -61,9 +61,13 @@ class MedicineService {
                         
                         sideEffectsList = sideEffectsList.filter(effect => !/\b(or|such as|normal)\b/i.test(effect));;
                         
-                        if (sideEffectsList.includes('or')){
-                            sideEffectsList.pop();
-                        };
+                        // Create a separate list that stores comma-separated elements
+                        let separateList = sideEffectsList.flatMap(effect => effect.split(',').map(item => item.trim()));
+
+                        // Remove elements that are "" or "\n"
+                        separateList = separateList.filter(item => item !== "" && item !== "\n");
+
+                        console.log("Separate list is : ", separateList);
 
                         console.log("sideEffectsList is: ");
                         console.log(sideEffectsList);
