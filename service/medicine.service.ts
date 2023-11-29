@@ -70,8 +70,10 @@ class MedicineService {
                             drug_name: medicine_name,
                             side_effects: finalSideEffectsList
                         };
+
+                        drugInfoJson = JSON.stringify(drugInfo);
                         
-                        resolve(drugInfo);
+                        resolve(drugInfoJson);
 
                     } catch (error) {
                         console.error(error);
