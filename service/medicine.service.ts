@@ -57,7 +57,9 @@ class MedicineService {
                         sideEffectsText.split(/,|;/);
                         console.log("sideEffectsText is : ", sideEffectsText);
                         let sideEffectsList = sideEffectsText.split(';').map(effect => effect.trim());
-                        console.log("Side effects list is : ", sideEffectsList);  
+                        console.log("Side effects list is : ", sideEffectsList);
+                        
+                        sideEffectsList = sideEffectsList.map(effect => effect.replace(/\b(or|such as|normal)\b.*$/i, '').trim());
                         
                         if (sideEffectsList.includes('or')){
                             sideEffectsList.pop();
