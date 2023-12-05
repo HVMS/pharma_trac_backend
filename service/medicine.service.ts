@@ -185,7 +185,7 @@ class MedicineService {
                             // return medicine.split('.')[0].split('/')[0];
                             return medicine.substring(1).split('.')[0];
                         } else{
-                            return medicine.split('.')[0];
+                            return medicine.substring(1).split('.')[0];
                         }
                     }
                 }).get();
