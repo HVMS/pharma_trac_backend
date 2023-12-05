@@ -13,6 +13,28 @@ const drug_information_url = baseURL + "/drug_information.html";
 
 class MedicineService {
 
+    async getAllMedicineList() {
+        try {
+
+            const client = await MongoClient.connect(mongoURI, {
+                connectTimeoutMS: 5000,
+                socketTimeoutMS: 3000,
+            });
+
+            const database = client.db(dbName);
+
+            const medicineList = await database.collection(medicineCollection).find().toArray();
+
+            await client.close();
+
+            return medicineList;
+            
+        } catch (error) {
+            console.error(error);
+            throw error;
+        }
+    }
+
     async getMedicineExistance(medicine_name: string) {
         try {
             

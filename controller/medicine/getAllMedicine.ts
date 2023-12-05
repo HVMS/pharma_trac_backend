@@ -1,12 +1,12 @@
 import express, {Request, Response} from 'express';
 import MedicineService from '../../service/medicine.service'; // Update the path to the MedicineService module
 
-export const getMedicineExistRouter = express.Router();
+export const getAllMedicineRouter = express.Router();
 
 const medicineService = new MedicineService();
 
 // Medicine Information endpoint
-getMedicineExistRouter.get('/', async (req: Request, res: Response) => {
+getAllMedicineRouter.get('/', async (req: Request, res: Response) => {
 
     console.log("Request body is : ",req.body);
 
@@ -14,21 +14,19 @@ getMedicineExistRouter.get('/', async (req: Request, res: Response) => {
     console.log("medicine name is : ", medicine_name);
 
     try {
-        const medicine: any = await medicineService.getMedicineExistance(medicine_name);
+        const medicineList: any = await medicineService.getAllMedicineList();
         
-        if (!medicine) {
+        if (!medicineList) {
             return res.json({
                 "statusCode": "404",
-                "medicine_name": medicine_name,
                 "message": "No medicine found",
-                "status": false,
+                "data": [],
             });
         } else {
             return res.json({
                 "statusCode": "200",
-                "medicine_name": medicine_name,
-                "message": "Yes medicine found",
-                "status": true,
+                "message": "All medicine found",
+                "data": medicineList,
             });
         }
     } catch (error: any) {

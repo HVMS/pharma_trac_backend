@@ -16,6 +16,7 @@ import { getMedicineInformationRouter } from "./controller/medicine/getMedicineI
 import { getMedicineTypesRouter } from "./controller/medicine/getMedicineTypes";
 import { getMedicineSideEffectRouter } from "./controller/medicine/getMedicineSideEffects";
 import { getMedicineExistRouter } from "./controller/medicine/getMedicineExist";
+import { getAllMedicineRouter } from "./controller/medicine/getAllMedicine";
 
 //For env File 
 dotenv.config();
@@ -46,6 +47,7 @@ app.use('/getMedicineInfo', getMedicineInformationRouter);
 app.use('/getMedicineSideEffect', getMedicineSideEffectRouter);
 
 app.use('/checkMedicineExist', getMedicineExistRouter);
+app.use('/getAllMedicine', getAllMedicineRouter);
 
 app.use('/addVitalSign', addVitalSignRouter);
 app.use('/getBloodPressure', getBloodPressureRouter);
