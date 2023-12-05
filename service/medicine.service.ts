@@ -71,7 +71,7 @@ class MedicineService {
     async getSideEffectsByMedicine(medicine_name: string) {
         try {
 
-            let drugInfoJson: any = {};
+            let medicine_side_effect_list: any = [];
             
             // Now call the getMedicineTypes() function to get the medicine types
             // Then check whether the medicine is in the list or not - if not then return false else true
@@ -127,13 +127,13 @@ class MedicineService {
 
                         console.log("Separate list is : ", finalSideEffectsList);
 
-                        let drugInfo = {
-                            side_effects: finalSideEffectsList
-                        };
+                        // let drugInfo = {
+                        //     side_effects: finalSideEffectsList
+                        // };
 
-                        drugInfoJson = JSON.stringify(drugInfo);
+                        // drugInfoJson = JSON.stringify(drugInfo);
                         
-                        resolve(drugInfoJson);
+                        resolve(finalSideEffectsList);
 
                     } catch (error) {
                         console.error(error);
@@ -143,11 +143,11 @@ class MedicineService {
                 });
             } else {
                 console.log("Not found");
-                return drugInfoJson;
+                return medicine_side_effect_list;
             }
 
-            console.log("Drug info json is : ", drugInfoJson);
-            return drugInfoJson;
+            console.log("Drug info json is : ", medicine_side_effect_list);
+            return medicine_side_effect_list;
 
         } catch (error) {
             console.error(error);
