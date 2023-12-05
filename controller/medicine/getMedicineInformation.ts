@@ -30,11 +30,13 @@ getMedicineInformationRouter.get('/', async (req: Request, res: Response) => {
 
             // One by one insert the medicine into the database
 
-            for (const medicine of medicineList) {
-                const medicineData = await database.collection(medicineCollection).findOne({name: medicine});
-                if (!medicineData) {
-                    const newMedicineData = await database.collection(medicineCollection).insertOne({name: medicine});
-                    console.log("Inserted data is : ", newMedicineData);
+            for(const medicineListItem of medicineList) {
+                for (const medicine of medicineListItem) {
+                    const medicineData = await database.collection(medicineCollection).findOne({name: medicine});
+                    if (!medicineData) {
+                        const newMedicineData = await database.collection(medicineCollection).insertOne({name: medicine});
+                        console.log("Inserted data is : ", newMedicineData);
+                    }
                 }
             }
 
