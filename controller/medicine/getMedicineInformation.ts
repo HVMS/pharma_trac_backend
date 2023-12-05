@@ -28,9 +28,7 @@ getMedicineInformationRouter.get('/', async (req: Request, res: Response) => {
 
             const database = client.db(dbName);
 
-            const data: any = {
-                "medicine_list": medicineList,
-            }
+            const data: any = medicineList;
 
             const newMedicineData = await database.collection(medicineCollection).insertMany(data);
 
