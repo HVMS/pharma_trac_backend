@@ -71,7 +71,7 @@ class MedicineService {
     async getSideEffectsByMedicine(medicine_name: string) {
         try {
 
-            let medicine_side_effect_list: any = [];
+            let finalSideEffectsList: any = [];
             
             // Now call the getMedicineTypes() function to get the medicine types
             // Then check whether the medicine is in the list or not - if not then return false else true
@@ -120,10 +120,10 @@ class MedicineService {
                         sideEffectsList = sideEffectsList.filter(effect => !/\b(or|where|was|such as|normal)\b/i.test(effect));;
                         
                         // Create a separate list that stores comma-separated elements
-                        let finalSideEffectsList = sideEffectsList.flatMap(effect => effect.split(',').map(item => item.trim()));
+                        finalSideEffectsList = sideEffectsList.flatMap(effect => effect.split(',').map(item => item.trim()));
 
                         // Remove elements that are "" or "\n"
-                        finalSideEffectsList = finalSideEffectsList.filter(item => item !== "" && item !== "\n");
+                        finalSideEffectsList = finalSideEffectsList.filter((item: string) => item !== "" && item !== "\n");
 
                         console.log("Separate list is : ", finalSideEffectsList);
 
@@ -143,11 +143,11 @@ class MedicineService {
                 });
             } else {
                 console.log("Not found");
-                return medicine_side_effect_list;
+                return finalSideEffectsList;
             }
 
-            console.log("Drug info json is : ", medicine_side_effect_list);
-            return medicine_side_effect_list;
+            console.log("Drug info json is : ", finalSideEffectsList);
+            return finalSideEffectsList;
 
         } catch (error) {
             console.error(error);
