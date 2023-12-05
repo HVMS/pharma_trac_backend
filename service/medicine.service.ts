@@ -1,11 +1,44 @@
 import * as cheerio from "cheerio";
 import axios from 'axios';
+import { MongoClient } from "mongodb";
+import envVariables from "../importenv";
+
+const mongoURI = envVariables.mongoURI;
+const dbName = envVariables.dbName;
+const medicineCollection = envVariables.medicineCollection;
 
 const baseURL = "https://www.drugs.com";
 
 const drug_information_url = baseURL + "/drug_information.html";
 
 class MedicineService {
+
+    async getMedicineExistance(medicine_name: string) {
+        try {
+            
+            // Now check wheather the medicine is in the database or not - if yes return true else false
+            const client = await MongoClient.connect(mongoURI, {
+                connectTimeoutMS: 5000,
+                socketTimeoutMS: 3000,
+            });
+            
+            const database = client.db(dbName);
+
+            const medicineData = await database.collection(medicineCollection).findOne({name: medicine_name});
+
+            await client.close();
+
+            if (!medicineData) {
+                return false;
+            } else {
+                return true;
+            }
+
+        } catch (error) {
+            console.error(error);
+            throw error;
+        }
+    }
 
     async getSideEffectsByMedicine(medicine_name: string) {
         try {

@@ -15,6 +15,7 @@ import { changePasswordRouter } from "./controller/users/changePassword";
 import { getMedicineInformationRouter } from "./controller/medicine/getMedicineInformation";
 import { getMedicineTypesRouter } from "./controller/medicine/getMedicineTypes";
 import { getMedicineSideEffectRouter } from "./controller/medicine/getMedicineSideEffects";
+import { getMedicineExistRouter } from "./controller/medicine/getMedicineExist";
 
 //For env File 
 dotenv.config();
@@ -43,6 +44,8 @@ app.use('/getSideEffect', getMedicineSideEffectRouter);
 app.use('/getTypesOfMedicine', getMedicineTypesRouter);
 app.use('/getMedicineInfo', getMedicineInformationRouter);
 app.use('/getMedicineSideEffect', getMedicineSideEffectRouter);
+
+app.use('/checkMedicineExist', getMedicineExistRouter);
 
 app.use('/addVitalSign', addVitalSignRouter);
 app.use('/getBloodPressure', getBloodPressureRouter);
