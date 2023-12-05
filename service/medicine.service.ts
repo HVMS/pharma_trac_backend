@@ -1,5 +1,12 @@
 import * as cheerio from "cheerio";
 import axios from 'axios';
+import { MongoClient } from "mongodb";
+import envVariables from "../importenv";
+import { data } from "cheerio/lib/api/attributes";
+
+const mongoURI = envVariables.mongoURI;
+const dbName = envVariables.dbName;
+const medicineDatabase = envVariables.medicineCollection;
 
 const baseURL = "https://www.drugs.com";
 
@@ -204,6 +211,25 @@ class MedicineService {
             } catch (error) {
                 console.error(error);
                 throw error;
+            }
+
+            try {
+                const client = await MongoClient.connect(mongoURI, {
+                    connectTimeoutMS: 5000,
+                    socketTimeoutMS: 3000,
+                });
+    
+                const database = client.db(dbName);
+    
+                const newMedicineData = await database.collection(medicineDatabase).insertMany(medicineList);
+    
+                console.log("Inserted data is : ", newMedicineData);
+    
+                await client.close();
+    
+    
+            } catch (error) {
+                console.log('error in inserting data is : ' + error);
             }
 
             return medicineList;
