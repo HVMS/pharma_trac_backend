@@ -18,7 +18,7 @@ getMedicineInformationRouter.get('/', async (req: Request, res: Response) => {
     console.log("Request body is : ", req.body);
 
     try {
-        const medicineList: any = await medicineService.getMedicineInfo();
+        const medicineList: any = await medicineService.getMedicineTypes();
 
         try {
             const client = await MongoClient.connect(mongoURI, {
