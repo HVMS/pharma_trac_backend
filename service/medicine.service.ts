@@ -180,16 +180,9 @@ class MedicineService {
                 const medicineList = $('#content > div.contentBox > ul').find('li').map((i, element) => {
                     const medicine = $(element).find('a').attr('href');
                     if (medicine != undefined) {
-                        if (medicine.includes('/mtm/')) {
-                            return medicine.split('.')[0];
-                        } else if (medicine.includes('/pro/')) {
-                            return medicine.split('.')[0];
-                        } else if (medicine.includes('/npc/')) {
-                            return medicine.split('.')[0];
-                        } else if (medicine.includes('/cons/')) {
-                            return medicine.split('.')[0];
-                        } else {
-                            return medicine.split('.')[0];
+                        if (medicine.includes('/mtm/') || medicine.includes('/pro/') ||
+                            medicine.includes('/npc/') || medicine.includes('/cons/')) {
+                            return medicine.split('.')[0].split('/')[0];
                         }
                     }
                 }).get();

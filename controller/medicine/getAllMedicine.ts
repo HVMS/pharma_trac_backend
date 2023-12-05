@@ -10,9 +10,6 @@ getAllMedicineRouter.get('/', async (req: Request, res: Response) => {
 
     console.log("Request body is : ",req.body);
 
-    const medicine_name = req.query.medicine_name as string;
-    console.log("medicine name is : ", medicine_name);
-
     try {
         const medicineList: any = await medicineService.getAllMedicineList();
         
