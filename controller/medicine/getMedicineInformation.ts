@@ -31,11 +31,16 @@ getMedicineInformationRouter.get('/', async (req: Request, res: Response) => {
             // One by one insert the medicine into the database
 
             for (const medicine of medicineList) {
-                const medicineData = await database.collection(medicineCollection).findOne({name: medicine});
-                if (!medicineData) {
-                    const newMedicineData = await database.collection(medicineCollection).insertOne({name: medicine});
-                    console.log("Inserted data is : ", newMedicineData);
-                }
+
+                // Now call the side effects API and store the side effects in the database
+                const sideEffects = await medicineService.getSideEffectsByMedicine(medicine);
+                console.log("Side effects are : ", sideEffects + " for medicine : " + medicine);
+                
+                // const medicineData = await database.collection(medicineCollection).findOne({name: medicine});
+                // if (!medicineData) {
+                //     const newMedicineData = await database.collection(medicineCollection).insertOne({name: medicine});
+                //     console.log("Inserted data is : ", newMedicineData);
+                // }
             }
 
             // const newMedicineData = await database.collection(medicineCollection).insertMany(data);
