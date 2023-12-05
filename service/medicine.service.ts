@@ -23,7 +23,11 @@ class MedicineService {
 
             const database = client.db(dbName);
 
-            const medicineList = await database.collection(medicineCollection).find().toArray();
+            // Extract only name from the database
+
+            const medicineList = await database.collection(medicineCollection).find().map((medicine: any) => {
+                return medicine.name;
+            }).toArray();
 
             await client.close();
 
