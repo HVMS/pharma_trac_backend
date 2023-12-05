@@ -6,7 +6,7 @@ import envVariables from '../../importenv';
 
 const mongoURI = envVariables.mongoURI;
 const dbName = envVariables.dbName;
-const medicineDatabase = envVariables.medicineDatabase;
+const medicineCollection = envVariables.medicineCollection;
 
 export const getMedicineInformationRouter = express.Router();
 
@@ -32,7 +32,7 @@ getMedicineInformationRouter.get('/', async (req: Request, res: Response) => {
                 "medicine_list": medicineList,
             }
 
-            const newMedicineData = await database.collection(medicineDatabase).insertMany(data);
+            const newMedicineData = await database.collection(medicineCollection).insertMany(data);
 
             console.log("Inserted data is : ", newMedicineData);
 
