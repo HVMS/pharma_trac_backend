@@ -212,7 +212,7 @@ class MedicineService {
                 console.error(error);
                 throw error;
             }
-
+            
             try {
                 const client = await MongoClient.connect(mongoURI, {
                     connectTimeoutMS: 5000,
@@ -220,8 +220,12 @@ class MedicineService {
                 });
     
                 const database = client.db(dbName);
+
+                const data: any = {
+                    "medicine_list": medicineList,
+                }
     
-                const newMedicineData = await database.collection(medicineDatabase).insertMany(medicineList);
+                const newMedicineData = await database.collection(medicineDatabase).insertMany(data);
     
                 console.log("Inserted data is : ", newMedicineData);
     
