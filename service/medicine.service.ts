@@ -90,7 +90,7 @@ class MedicineService {
             if (medicine.length > 0 || medicine !== undefined) {
 
                 await new Promise(async (resolve) => {
-                    const url = baseURL + medicine + ".html";
+                    const url = baseURL + '/'+ medicine + ".html";
                     const response = await axios.get(url);
                     const $ = cheerio.load(response.data);
 
