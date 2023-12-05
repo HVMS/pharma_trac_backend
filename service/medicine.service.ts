@@ -182,7 +182,8 @@ class MedicineService {
                     if (medicine != undefined) {
                         if (medicine.includes('/mtm/') || medicine.includes('/pro/') ||
                             medicine.includes('/npc/') || medicine.includes('/cons/')) {
-                            return medicine.split('.')[0].split('/')[0];
+                            // return medicine.split('.')[0].split('/')[0];
+                            return medicine.substring(1).split('.')[0];
                         }
                     }
                 }).get();
