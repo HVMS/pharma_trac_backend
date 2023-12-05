@@ -24,6 +24,8 @@ class MedicineService {
             
             const database = client.db(dbName);
 
+            medicine_name = medicine_name.toLowerCase();
+
             const medicineData = await database.collection(medicineCollection).findOne({name: medicine_name});
 
             await client.close();
