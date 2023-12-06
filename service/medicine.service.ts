@@ -31,6 +31,8 @@ class MedicineService {
             console.log("Medicine list starting with a is : ", medicineListStartingWithA);
             console.log("Medicine list starting with a is : ", medicineListStartingWithA.length);
 
+            let count = 0;
+
             for (let i = 0; i < medicineListStartingWithA.length; i++) {
                 const medicine = medicineListStartingWithA[i];
                 const medicineSideEffectsList = await this.getSideEffectsByMedicine(medicine);
@@ -39,7 +41,11 @@ class MedicineService {
                 } else {
                     console.log("Medicine side effects list is empty: ", medicineSideEffectsList);
                 }
+                count = count + 1;
             }
+
+            console.log("Count is : ", count);
+            console.log("Medicine list starting with a is : ", medicineListStartingWithA.length);
 
             return medicineListStartingWithA;
 
