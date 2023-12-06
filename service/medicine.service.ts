@@ -31,6 +31,8 @@ class MedicineService {
             console.log("Medicine list starting with a is : ", medicineListStartingWithA);
             console.log("Medicine list starting with a is : ", medicineListStartingWithA.length);
 
+            return medicineListStartingWithA;
+
         } catch (error) {
             console.error(error);
             throw error;
