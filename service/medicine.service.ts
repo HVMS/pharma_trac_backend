@@ -38,6 +38,26 @@ class MedicineService {
                 const medicineSideEffectsList = await this.getSideEffectsByMedicine(medicine);
                 if (medicineSideEffectsList != null || medicineSideEffectsList != undefined) {
                     console.log("Medicine side effects list is : ", medicineSideEffectsList);
+
+                    // Now write the data into the database
+                    const client = await MongoClient.connect(mongoURI, {
+                        connectTimeoutMS: 5000,
+                        socketTimeoutMS: 3000,
+                    });
+
+                    const database = client.db(dbName);
+
+                    // Now insert the data into the database
+                    const medicineData = {
+                        name: medicine,
+                        side_effects: medicineSideEffectsList,
+                    };
+
+                    const result = await database.collection(medicineCollection).insertOne(medicineData);
+
+                    await client.close();
+
+                    console.log("Result is : ", result);
                 } else {
                     console.log("Medicine side effects list is empty: ", medicineSideEffectsList);
                 }
