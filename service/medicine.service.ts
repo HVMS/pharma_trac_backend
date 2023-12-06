@@ -31,6 +31,8 @@ class MedicineService {
             console.log("Medicine list starting with a is : ", medicineListStartingWithA);
             console.log("Medicine list starting with a is : ", medicineListStartingWithA.length);
 
+
+
             return medicineListStartingWithA;
 
         } catch (error) {
@@ -101,22 +103,22 @@ class MedicineService {
             
             // Now call the getMedicineTypes() function to get the medicine types
             // Then check whether the medicine is in the list or not - if not then return false else true
-            const medicineTypesList = await this.getMedicineTypes();
+            // const medicineTypesList = await this.getMedicineTypes();
 
             // Now medicine types list is an list of list of string - so we need to flatten it
-            const flattenMedicineTypesList = medicineTypesList.flat();
-            console.log("Flatten medicine types list is : ", flattenMedicineTypesList);
+            // const flattenMedicineTypesList = medicineTypesList.flat();
+            // console.log("Flatten medicine types list is : ", flattenMedicineTypesList);
 
-            const regex = new RegExp(medicine_name, 'i');
+            // const regex = new RegExp(medicine_name, 'i');
 
-            const medicine = flattenMedicineTypesList.find((element: any) => {
-                return regex.test(element);
-            });
+            // const medicine = flattenMedicineTypesList.find((element: any) => {
+                // return regex.test(element);
+            // });
             
-            if (medicine.length > 0 || medicine !== undefined) {
+            if (medicine_name.length > 0 || medicine_name !== undefined) {
 
                 await new Promise(async (resolve) => {
-                    const url = baseURL + '/'+ medicine + ".html";
+                    const url = baseURL + '/'+ medicine_name + ".html";
                     const response = await axios.get(url);
                     const $ = cheerio.load(response.data);
 
