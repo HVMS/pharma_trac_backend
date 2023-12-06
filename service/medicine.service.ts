@@ -47,13 +47,11 @@ class MedicineService {
 
                     const database = client.db(dbName);
 
-                    // Now insert the data into the database
-                    const medicineData = {
-                        name: medicine,
-                        side_effects: medicineSideEffectsList,
-                    };
+                    const result = await database
+                        .collection(medicineCollection)
+                        .findOneAndUpdate({ name: medicine }, { $set: medicineSideEffectsList });
 
-                    const result = await database.collection(medicineCollection).insertOne(medicineData);
+                    // const result = await database.collection(medicineCollection).insertOne(medicineData);
 
                     await client.close();
 
