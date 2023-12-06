@@ -274,34 +274,21 @@ class MedicineService {
     async getMedicineSideEffects(medicine_name: string) {
         try {
 
-            console.log("Medicine name is : ", medicine_name);
+            const client = await MongoClient.connect(mongoURI, {
+                connectTimeoutMS: 5000,
+                socketTimeoutMS: 3000,
+            });
 
-            const medicineList = await this.getAllMedicineList();
-            const extractedMedicint = this.extractMedicine(medicineList, medicine_name);
+            const database = client.db(dbName);
 
-            console.log("Extracted medicine is : ", extractedMedicint);
+            const medicineData = await database.collection(medicineCollection).findOne({name: medicine_name});
 
-            let ifMedicineExists = await this.getMedicineExistance(medicine_name);
-
-            if (ifMedicineExists) {
-                const client = await MongoClient.connect(mongoURI, {
-                    connectTimeoutMS: 5000,
-                    socketTimeoutMS: 3000,
-                });
-
-                const database = client.db(dbName);
-
-                const medicineData = await database.collection(medicineCollection).findOne({name: medicine_name});
-
-                if (medicineData){
-                    await client.close();
-                    return medicineData.sideEffects;
-                } else {
-                    await client.close();
-                    return null;
-                }
+            if (medicineData){
+                await client.close();
+                return medicineData.sideEffects;
             } else {
-                throw new Error("Medicine does not exist");
+                await client.close();
+                return [];
             }
 
         } catch (error) {

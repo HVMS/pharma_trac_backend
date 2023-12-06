@@ -20,7 +20,7 @@ getMedicineSideEffectRouter.get('/', async (req: Request, res: Response) => {
             return res.json({
                 "statusCode": "404",
                 "medicine_name": medicine_name,
-                "message": "No side effects found"
+                "data": [],
             });
         } else {
             return res.json({
