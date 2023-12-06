@@ -13,7 +13,7 @@ const drug_information_url = baseURL + "/drug_information.html";
 
 class MedicineService {
 
-    async getMedicineStartsWithA(){
+    async getMedicineStartsWithB(){
         try {
             const medicineList = await this.getAllMedicineList();
 
@@ -21,15 +21,12 @@ class MedicineService {
             
             const medicineListStartingWithA = medicineList.filter((medicine: string) => {
                 let name = medicine.toLowerCase();
-                return name.startsWith('a') ||
-                        name.startsWith('mtm/a') ||
-                        name.startsWith('pro/a') ||
-                        name.startsWith('npc/a') ||
-                        name.startsWith('cons/a');
+                return name.startsWith('b') ||
+                        name.startsWith('mtm/b') ||
+                        name.startsWith('pro/b') ||
+                        name.startsWith('npc/b') ||
+                        name.startsWith('cons/b');
             });
-
-            console.log("Medicine list starting with a is : ", medicineListStartingWithA);
-            console.log("Medicine list starting with a is : ", medicineListStartingWithA.length);
 
             let count = 0;
 
@@ -63,7 +60,7 @@ class MedicineService {
             }
 
             console.log("Count is : ", count);
-            console.log("Medicine list starting with a is : ", medicineListStartingWithA.length);
+            console.log("Medicine list starting with b is : ", medicineListStartingWithA.length);
 
             return medicineListStartingWithA;
 

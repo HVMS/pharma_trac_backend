@@ -1,19 +1,19 @@
 import express, {Request, Response} from 'express';
 import MedicineService from '../../service/medicine.service'; // Update the path to the MedicineService module
 
-export const getAllMedicineStartsWithARouter = express.Router();
+export const getAllMedicineStartsWithBRouter = express.Router();
 
 const medicineService = new MedicineService();
 
 // Medicine Information endpoint
-getAllMedicineStartsWithARouter.get('/', async (req: Request, res: Response) => {
+getAllMedicineStartsWithBRouter.get('/', async (req: Request, res: Response) => {
 
     console.log("Request body is : ",req.body);
 
     try {
-        const medicineListA: any = await medicineService.getMedicineStartsWithA();
+        const medicineListB: any = await medicineService.getMedicineStartsWithB();
         
-        if (!medicineListA) {
+        if (!medicineListB) {
             return res.json({
                 "statusCode": "404",
                 "message": "No medicine found",
@@ -22,8 +22,8 @@ getAllMedicineStartsWithARouter.get('/', async (req: Request, res: Response) => 
         } else {
             return res.json({
                 "statusCode": "200",
-                "message": "All medicine found starts with Letter A",
-                "data": medicineListA,
+                "message": "All medicine found starts with Letter B",
+                "data": medicineListB,
             });
         }
     } catch (error: any) {
