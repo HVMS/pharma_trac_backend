@@ -14,7 +14,7 @@ getMedicineSideEffectRouter.get('/', async (req: Request, res: Response) => {
     console.log("medicine name is : ", medicine_name);
 
     try {
-        const medicineSideEffectsList: any = await medicineService.getSideEffectsByMedicine(medicine_name);
+        const medicineSideEffectsList: any = await medicineService.getMedicineSideEffects(medicine_name);
         
         if (!medicineSideEffectsList) {
             return res.json({

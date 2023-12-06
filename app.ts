@@ -45,11 +45,12 @@ app.use('/getSideEffect', getMedicineSideEffectRouter);
 // Vital Sign Adding Feature
 app.use('/getTypesOfMedicine', getMedicineTypesRouter);
 app.use('/getMedicineInfo', getMedicineInformationRouter);
-app.use('/getMedicineSideEffect', getMedicineSideEffectRouter);
+// app.use('/getMedicineSideEffect', getMedicineSideEffectRouter);
 
 app.use('/checkMedicineExist', getMedicineExistRouter);
 app.use('/getAllMedicine', getAllMedicineRouter);
 app.use('/getMedicineStartsWithB', getAllMedicineStartsWithBRouter);
+app.use('/getMedicineSideEffects', getMedicineSideEffectRouter);
 
 app.use('/addVitalSign', addVitalSignRouter);
 app.use('/getBloodPressure', getBloodPressureRouter);

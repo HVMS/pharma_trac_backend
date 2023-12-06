@@ -13,62 +13,62 @@ const drug_information_url = baseURL + "/drug_information.html";
 
 class MedicineService {
 
-    async getMedicineStartsWithB(){
-        try {
-            const medicineList = await this.getAllMedicineList();
+    // async getMedicineStartsWithB(){
+    //     try {
+    //         const medicineList = await this.getAllMedicineList();
 
-            // Now extract only medicine which starts with the letter 'a' 
+    //         // Now extract only medicine which starts with the letter 'a' 
             
-            // const medicineListStartingWithA = medicineList.filter((medicine: string) => {
-            //     let name = medicine.toLowerCase();
-            //     return name.startsWith('c') ||
-            //             name.startsWith('mtm/c') ||
-            //             name.startsWith('pro/c') ||
-            //             name.startsWith('npc/c') ||
-            //             name.startsWith('cons/c');
-            // });
+    //         // const medicineListStartingWithA = medicineList.filter((medicine: string) => {
+    //         //     let name = medicine.toLowerCase();
+    //         //     return name.startsWith('c') ||
+    //         //             name.startsWith('mtm/c') ||
+    //         //             name.startsWith('pro/c') ||
+    //         //             name.startsWith('npc/c') ||
+    //         //             name.startsWith('cons/c');
+    //         // });
 
-            let count = 0;
+    //         let count = 0;
 
-            for (let i = 0; i < medicineList.length; i++) {
-                const medicine = medicineList[i];
-                const medicineSideEffectsList = await this.getSideEffectsByMedicine(medicine);
-                if (medicineSideEffectsList != null || medicineSideEffectsList != undefined) {
-                    console.log("Medicine side effects list is : ", medicineSideEffectsList);
+    //         for (let i = 0; i < medicineList.length; i++) {
+    //             const medicine = medicineList[i];
+    //             const medicineSideEffectsList = await this.getSideEffectsByMedicine(medicine);
+    //             if (medicineSideEffectsList != null || medicineSideEffectsList != undefined) {
+    //                 console.log("Medicine side effects list is : ", medicineSideEffectsList);
 
-                    // Now write the data into the database
-                    const client = await MongoClient.connect(mongoURI, {
-                        connectTimeoutMS: 5000,
-                        socketTimeoutMS: 3000,
-                    });
+    //                 // Now write the data into the database
+    //                 const client = await MongoClient.connect(mongoURI, {
+    //                     connectTimeoutMS: 5000,
+    //                     socketTimeoutMS: 3000,
+    //                 });
 
-                    const database = client.db(dbName);
+    //                 const database = client.db(dbName);
 
-                    const result = await database
-                        .collection(medicineCollection)
-                        .findOneAndUpdate({ name: medicine }, { $set: { sideEffects: medicineSideEffectsList }} );
+    //                 const result = await database
+    //                     .collection(medicineCollection)
+    //                     .findOneAndUpdate({ name: medicine }, { $set: { sideEffects: medicineSideEffectsList }} );
 
-                    // const result = await database.collection(medicineCollection).insertOne(medicineData);
+    //                 // const result = await database.collection(medicineCollection).insertOne(medicineData);
 
-                    await client.close();
+    //                 await client.close();
 
-                    console.log("Result is : ", result);
-                } else {
-                    console.log("Medicine side effects list is empty: ", medicineSideEffectsList);
-                }
-                count = count + 1;
-            }
+    //                 console.log("Result is : ", result);
+    //             } else {
+    //                 console.log("Medicine side effects list is empty: ", medicineSideEffectsList);
+    //             }
+    //             count = count + 1;
+    //         }
 
-            console.log("Count is : ", count);
-            console.log("Medicine list starting with b is : ", medicineList.length);
+    //         console.log("Count is : ", count);
+    //         console.log("Medicine list starting with b is : ", medicineList.length);
 
-            return medicineList;
+    //         return medicineList;
 
-        } catch (error) {
-            console.error(error);
-            throw error;
-        }
-    }
+    //     } catch (error) {
+    //         console.error(error);
+    //         throw error;
+    //     }
+    // }
 
     async getAllMedicineList() {
         try {
@@ -125,92 +125,92 @@ class MedicineService {
         }
     }
 
-    async getSideEffectsByMedicine(medicine_name: string) {
-        try {
+    // async getSideEffectsByMedicine(medicine_name: string) {
+    //     try {
 
-            let finalSideEffectsList: any = [];
+    //         let finalSideEffectsList: any = [];
             
-            // Now call the getMedicineTypes() function to get the medicine types
-            // Then check whether the medicine is in the list or not - if not then return false else true
-            // const medicineTypesList = await this.getMedicineTypes();
+    //         // Now call the getMedicineTypes() function to get the medicine types
+    //         // Then check whether the medicine is in the list or not - if not then return false else true
+    //         // const medicineTypesList = await this.getMedicineTypes();
 
-            // Now medicine types list is an list of list of string - so we need to flatten it
-            // const flattenMedicineTypesList = medicineTypesList.flat();
-            // console.log("Flatten medicine types list is : ", flattenMedicineTypesList);
+    //         // Now medicine types list is an list of list of string - so we need to flatten it
+    //         // const flattenMedicineTypesList = medicineTypesList.flat();
+    //         // console.log("Flatten medicine types list is : ", flattenMedicineTypesList);
 
-            // const regex = new RegExp(medicine_name, 'i');
+    //         // const regex = new RegExp(medicine_name, 'i');
 
-            // const medicine = flattenMedicineTypesList.find((element: any) => {
-                // return regex.test(element);
-            // });
+    //         // const medicine = flattenMedicineTypesList.find((element: any) => {
+    //             // return regex.test(element);
+    //         // });
             
-            if (medicine_name.length > 0 || medicine_name !== undefined) {
+    //         if (medicine_name.length > 0 || medicine_name !== undefined) {
 
-                await new Promise(async (resolve) => {
-                    const url = baseURL + '/'+ medicine_name + ".html";
-                    const response = await axios.get(url);
-                    const $ = cheerio.load(response.data);
+    //             await new Promise(async (resolve) => {
+    //                 const url = baseURL + '/'+ medicine_name + ".html";
+    //                 const response = await axios.get(url);
+    //                 const $ = cheerio.load(response.data);
 
-                    try {
-                        const sideEffectParagraph = $("p").filter((index, element) => {
-                            return /common.*side effects.*may include:/i.test($(element).text());
-                        });
+    //                 try {
+    //                     const sideEffectParagraph = $("p").filter((index, element) => {
+    //                         return /common.*side effects.*may include:/i.test($(element).text());
+    //                     });
 
-                        // console.log("Side effect paragraph is : ", sideEffectParagraph);
+    //                     // console.log("Side effect paragraph is : ", sideEffectParagraph);
 
-                        let sideEffectsText = sideEffectParagraph.next().text();
-                        // console.log("Side effects text is : ", sideEffectsText);
+    //                     let sideEffectsText = sideEffectParagraph.next().text();
+    //                     // console.log("Side effects text is : ", sideEffectsText);
 
-                        // Remove the empty lines from the side effects text
-                        sideEffectsText = sideEffectsText.replace(/^\s*[\r\n]/gm, '');
+    //                     // Remove the empty lines from the side effects text
+    //                     sideEffectsText = sideEffectsText.replace(/^\s*[\r\n]/gm, '');
 
-                        let lines = sideEffectsText.split(';');
-                        // console.log("Lines are : ", lines);
-                        lines = lines.filter((line: string) => line.split(/,| /).length < 4);
-                        lines = lines.filter(line => !/or|such as|normal/i.test(line));
-                        // console.log("Lines are : ", lines);
-                        sideEffectsText.split(/,|;/);
-                        // console.log("sideEffectsText is : ", sideEffectsText);
-                        let sideEffectsList = sideEffectsText.split(';').map(effect => effect.trim());
-                        // console.log("Side effects list is : ", sideEffectsList);
+    //                     let lines = sideEffectsText.split(';');
+    //                     // console.log("Lines are : ", lines);
+    //                     lines = lines.filter((line: string) => line.split(/,| /).length < 4);
+    //                     lines = lines.filter(line => !/or|such as|normal/i.test(line));
+    //                     // console.log("Lines are : ", lines);
+    //                     sideEffectsText.split(/,|;/);
+    //                     // console.log("sideEffectsText is : ", sideEffectsText);
+    //                     let sideEffectsList = sideEffectsText.split(';').map(effect => effect.trim());
+    //                     // console.log("Side effects list is : ", sideEffectsList);
                         
-                        sideEffectsList = sideEffectsList.filter(effect => !/\b(or|when|you|this|where|was|such as|normal)\b/i.test(effect));;
+    //                     sideEffectsList = sideEffectsList.filter(effect => !/\b(or|when|you|this|where|was|such as|normal)\b/i.test(effect));;
                         
-                        // Create a separate list that stores comma-separated elements
-                        finalSideEffectsList = sideEffectsList.flatMap(effect => effect.split(',').map(item => item.trim()));
+    //                     // Create a separate list that stores comma-separated elements
+    //                     finalSideEffectsList = sideEffectsList.flatMap(effect => effect.split(',').map(item => item.trim()));
 
-                        // Remove elements that are "" or "\n"
-                        finalSideEffectsList = finalSideEffectsList.filter((item: string) => item !== "" && item !== "\n");
+    //                     // Remove elements that are "" or "\n"
+    //                     finalSideEffectsList = finalSideEffectsList.filter((item: string) => item !== "" && item !== "\n");
 
-                        // console.log("Separate list is : ", finalSideEffectsList);
+    //                     // console.log("Separate list is : ", finalSideEffectsList);
 
-                        // let drugInfo = {
-                        //     side_effects: finalSideEffectsList
-                        // };
+    //                     // let drugInfo = {
+    //                     //     side_effects: finalSideEffectsList
+    //                     // };
 
-                        // drugInfoJson = JSON.stringify(drugInfo);
+    //                     // drugInfoJson = JSON.stringify(drugInfo);
                         
-                        resolve(finalSideEffectsList);
+    //                     resolve(finalSideEffectsList);
 
-                    } catch (error) {
-                        console.error(error);
-                        throw error;
-                    }
+    //                 } catch (error) {
+    //                     console.error(error);
+    //                     throw error;
+    //                 }
 
-                });
-            } else {
-                console.log("Not found");
-                return finalSideEffectsList;
-            }
+    //             });
+    //         } else {
+    //             console.log("Not found");
+    //             return finalSideEffectsList;
+    //         }
 
-            console.log("Final Side Effects List is : ", finalSideEffectsList);
-            return finalSideEffectsList;
+    //         console.log("Final Side Effects List is : ", finalSideEffectsList);
+    //         return finalSideEffectsList;
 
-        } catch (error) {
-            console.error(error);
-            throw error;
-        }
-    }
+    //     } catch (error) {
+    //         console.error(error);
+    //         throw error;
+    //     }
+    // }
 
     async getMedicineTypes() {
         try{
@@ -252,6 +252,38 @@ class MedicineService {
             }));
 
             return medicineTypesList;
+
+        } catch (error) {
+            console.error(error);
+            throw error;
+        }
+    }
+
+    async getMedicineSideEffects(medicine_name: string) {
+        try {
+            
+            let ifMedicineExists = await this.getMedicineExistance(medicine_name);
+
+            if (ifMedicineExists) {
+                const client = await MongoClient.connect(mongoURI, {
+                    connectTimeoutMS: 5000,
+                    socketTimeoutMS: 3000,
+                });
+
+                const database = client.db(dbName);
+
+                const medicineData = await database.collection(medicineCollection).findOne({name: medicine_name});
+
+                if (medicineData){
+                    await client.close();
+                    return medicineData.sideEffects;
+                } else {
+                    await client.close();
+                    return null;
+                }
+            } else {
+                throw new Error("Medicine does not exist");
+            }
 
         } catch (error) {
             console.error(error);
