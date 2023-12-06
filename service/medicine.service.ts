@@ -21,11 +21,11 @@ class MedicineService {
             
             const medicineListStartingWithA = medicineList.filter((medicine: string) => {
                 let name = medicine.toLowerCase();
-                return name.startsWith('b') ||
-                        name.startsWith('mtm/b') ||
-                        name.startsWith('pro/b') ||
-                        name.startsWith('npc/b') ||
-                        name.startsWith('cons/b');
+                return name.startsWith('c') ||
+                        name.startsWith('mtm/c') ||
+                        name.startsWith('pro/c') ||
+                        name.startsWith('npc/c') ||
+                        name.startsWith('cons/c');
             });
 
             let count = 0;
