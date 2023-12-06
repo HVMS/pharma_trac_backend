@@ -19,19 +19,19 @@ class MedicineService {
 
             // Now extract only medicine which starts with the letter 'a' 
             
-            const medicineListStartingWithA = medicineList.filter((medicine: string) => {
-                let name = medicine.toLowerCase();
-                return name.startsWith('c') ||
-                        name.startsWith('mtm/c') ||
-                        name.startsWith('pro/c') ||
-                        name.startsWith('npc/c') ||
-                        name.startsWith('cons/c');
-            });
+            // const medicineListStartingWithA = medicineList.filter((medicine: string) => {
+            //     let name = medicine.toLowerCase();
+            //     return name.startsWith('c') ||
+            //             name.startsWith('mtm/c') ||
+            //             name.startsWith('pro/c') ||
+            //             name.startsWith('npc/c') ||
+            //             name.startsWith('cons/c');
+            // });
 
             let count = 0;
 
-            for (let i = 0; i < medicineListStartingWithA.length; i++) {
-                const medicine = medicineListStartingWithA[i];
+            for (let i = 0; i < medicineList.length; i++) {
+                const medicine = medicineList[i];
                 const medicineSideEffectsList = await this.getSideEffectsByMedicine(medicine);
                 if (medicineSideEffectsList != null || medicineSideEffectsList != undefined) {
                     console.log("Medicine side effects list is : ", medicineSideEffectsList);
@@ -60,9 +60,9 @@ class MedicineService {
             }
 
             console.log("Count is : ", count);
-            console.log("Medicine list starting with b is : ", medicineListStartingWithA.length);
+            console.log("Medicine list starting with b is : ", medicineList.length);
 
-            return medicineListStartingWithA;
+            return medicineList;
 
         } catch (error) {
             console.error(error);
