@@ -13,6 +13,30 @@ const drug_information_url = baseURL + "/drug_information.html";
 
 class MedicineService {
 
+    async getMedicineStartsWithA(){
+        try {
+            const medicineList = await this.getAllMedicineList();
+
+            // Now extract only medicine which starts with the letter 'a' 
+            
+            const medicineListStartingWithA = medicineList.filter((medicine: string) => {
+                let name = medicine.toLowerCase();
+                return name.startsWith('a') ||
+                        name.startsWith('mtm/a') ||
+                        name.startsWith('pro/a') ||
+                        name.startsWith('npc/a') ||
+                        name.startsWith('cons/a');
+            });
+
+            console.log("Medicine list starting with a is : ", medicineListStartingWithA);
+            console.log("Medicine list starting with a is : ", medicineListStartingWithA.length);
+
+        } catch (error) {
+            console.error(error);
+            throw error;
+        }
+    }
+
     async getAllMedicineList() {
         try {
 
@@ -28,17 +52,6 @@ class MedicineService {
             const medicineList = await database.collection(medicineCollection).find().map((medicine: any) => {
                 return medicine.name;
             }).toArray();
-
-            // Now extract only medicine which starts with the letter 'a' 
-            // Sometimes medicines starts with the letter 'a' but prefix are startings with /mtm and /pro and /npc and /cons)
-
-            const regex = new RegExp('^a', 'i');
-
-            const medicineListStartingWithA = medicineList.filter((medicine: string) => {
-                return regex.test(medicine);
-            });
-
-            console.log("Medicine list starting with a is : ", medicineListStartingWithA);
 
             await client.close();
 
