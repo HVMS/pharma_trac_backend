@@ -31,7 +31,15 @@ class MedicineService {
             console.log("Medicine list starting with a is : ", medicineListStartingWithA);
             console.log("Medicine list starting with a is : ", medicineListStartingWithA.length);
 
-
+            for (let i = 0; i < medicineListStartingWithA.length; i++) {
+                const medicine = medicineListStartingWithA[i];
+                const medicineSideEffectsList = await this.getSideEffectsByMedicine(medicine);
+                if (medicineSideEffectsList != null || medicineSideEffectsList != undefined) {
+                    console.log("Medicine side effects list is : ", medicineSideEffectsList);
+                } else {
+                    console.log("Medicine side effects list is empty: ", medicineSideEffectsList);
+                }
+            }
 
             return medicineListStartingWithA;
 
