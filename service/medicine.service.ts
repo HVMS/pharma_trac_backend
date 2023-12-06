@@ -99,23 +99,23 @@ class MedicineService {
                             return /common.*side effects.*may include:/i.test($(element).text());
                         });
 
-                        console.log("Side effect paragraph is : ", sideEffectParagraph);
+                        // console.log("Side effect paragraph is : ", sideEffectParagraph);
 
                         let sideEffectsText = sideEffectParagraph.next().text();
-                        console.log("Side effects text is : ", sideEffectsText);
+                        // console.log("Side effects text is : ", sideEffectsText);
 
                         // Remove the empty lines from the side effects text
                         sideEffectsText = sideEffectsText.replace(/^\s*[\r\n]/gm, '');
 
                         let lines = sideEffectsText.split(';');
-                        console.log("Lines are : ", lines);
+                        // console.log("Lines are : ", lines);
                         lines = lines.filter((line: string) => line.split(/,| /).length < 4);
                         lines = lines.filter(line => !/or|such as|normal/i.test(line));
-                        console.log("Lines are : ", lines);
+                        // console.log("Lines are : ", lines);
                         sideEffectsText.split(/,|;/);
-                        console.log("sideEffectsText is : ", sideEffectsText);
+                        // console.log("sideEffectsText is : ", sideEffectsText);
                         let sideEffectsList = sideEffectsText.split(';').map(effect => effect.trim());
-                        console.log("Side effects list is : ", sideEffectsList);
+                        // console.log("Side effects list is : ", sideEffectsList);
                         
                         sideEffectsList = sideEffectsList.filter(effect => !/\b(or|where|was|such as|normal)\b/i.test(effect));;
                         
@@ -125,7 +125,7 @@ class MedicineService {
                         // Remove elements that are "" or "\n"
                         finalSideEffectsList = finalSideEffectsList.filter((item: string) => item !== "" && item !== "\n");
 
-                        console.log("Separate list is : ", finalSideEffectsList);
+                        // console.log("Separate list is : ", finalSideEffectsList);
 
                         // let drugInfo = {
                         //     side_effects: finalSideEffectsList
@@ -146,7 +146,7 @@ class MedicineService {
                 return finalSideEffectsList;
             }
 
-            console.log("Drug info json is : ", finalSideEffectsList);
+            console.log("Final Side Effects List is : ", finalSideEffectsList);
             return finalSideEffectsList;
 
         } catch (error) {
