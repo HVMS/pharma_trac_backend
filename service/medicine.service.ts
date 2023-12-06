@@ -49,7 +49,7 @@ class MedicineService {
 
                     const result = await database
                         .collection(medicineCollection)
-                        .findOneAndUpdate({ name: medicine }, { $set: medicineSideEffectsList });
+                        .findOneAndUpdate({ name: medicine }, { $set: { sideEffects: medicineSideEffectsList }} );
 
                     // const result = await database.collection(medicineCollection).insertOne(medicineData);
 
