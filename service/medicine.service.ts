@@ -117,7 +117,7 @@ class MedicineService {
                         let sideEffectsList = sideEffectsText.split(';').map(effect => effect.trim());
                         // console.log("Side effects list is : ", sideEffectsList);
                         
-                        sideEffectsList = sideEffectsList.filter(effect => !/\b(or|where|was|such as|normal)\b/i.test(effect));;
+                        sideEffectsList = sideEffectsList.filter(effect => !/\b(or|when|you|this|where|was|such as|normal)\b/i.test(effect));;
                         
                         // Create a separate list that stores comma-separated elements
                         finalSideEffectsList = sideEffectsList.flatMap(effect => effect.split(',').map(item => item.trim()));
