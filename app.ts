@@ -49,7 +49,7 @@ app.use('/getMedicineInfo', getMedicineInformationRouter);
 
 app.use('/checkMedicineExist', getMedicineExistRouter);
 app.use('/getAllMedicine', getAllMedicineRouter);
-app.use('/getMedicineStartsWithB', getAllMedicineStartsWithBRouter);
+// app.use('/getMedicineStartsWithB', getAllMedicineStartsWithBRouter);
 app.use('/getMedicineSideEffects', getMedicineSideEffectRouter);
 
 app.use('/addVitalSign', addVitalSignRouter);
