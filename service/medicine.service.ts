@@ -259,9 +259,28 @@ class MedicineService {
         }
     }
 
+    extractMedicine(medicineList: any, medicine_name: string) {
+        try {
+            const medicineRegex = new RegExp(`\\b(${medicineList.join('|')})\\b`, 'i');
+            const match = medicine_name.match(medicineRegex);
+            console.log("Match is : ", match);
+            return match ? match[0] : null;
+        } catch (error) {
+            console.error(error);
+            throw error;
+        }
+    }
+
     async getMedicineSideEffects(medicine_name: string) {
         try {
-            
+
+            console.log("Medicine name is : ", medicine_name);
+
+            const medicineList = await this.getAllMedicineList();
+            const extractedMedicint = this.extractMedicine(medicineList, medicine_name);
+
+            console.log("Extracted medicine is : ", extractedMedicint);
+
             let ifMedicineExists = await this.getMedicineExistance(medicine_name);
 
             if (ifMedicineExists) {
