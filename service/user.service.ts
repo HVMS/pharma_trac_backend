@@ -247,7 +247,7 @@ class UserService {
                 {
                     $set: {
                         password: hashedPassword,
-                        confirmPassword: confirmPassword,
+                        confirmPassword: hashedConfirmPassword,
                     },
                 }
             );
