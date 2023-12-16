@@ -123,9 +123,15 @@ class UserService {
             if (!userRegister.password) {
                 throw new Error('Password is required');
             }
+
+            if (!userRegister.confirmPassword) {
+                throw new Error('Confirm Password is required');
+            }
           
             const hashedPassword = await bcrypt.hash(userRegister.password.toString(), 10);
+            const hashedConfirmPassword = await bcrypt.hash(userRegister.confirmPassword.toString(), 10);
             userRegister.password = hashedPassword;
+            userRegister.confirmPassword = hashedConfirmPassword;
 
             const newRegisteredUser = await database.collection(userRegistrationDatabase).insertOne({
                 ...userRegister,
@@ -235,6 +241,7 @@ class UserService {
             }
 
             const hashedPassword = await bcrypt.hash(password.toString(), 10);
+            const hashedConfirmPassword = await bcrypt.hash(confirmPassword.toString(), 10);
             const updatedUser = await users.findOneAndUpdate(
                 { _id: new ObjectId(_userId) },
                 {
